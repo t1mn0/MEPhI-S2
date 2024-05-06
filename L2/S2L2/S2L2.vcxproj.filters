@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\DataStructures">
+      <UniqueIdentifier>{5e42cebf-eabe-4362-b613-106d8393cba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Exceptions">
+      <UniqueIdentifier>{095f1f10-22a7-49c4-acb5-4e332526aedf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Sequence">
+      <UniqueIdentifier>{a38a4252-2aa6-4cd5-9e14-14c6973951d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Sequence\ArraySequence">
+      <UniqueIdentifier>{f76d0594-271a-4e91-a205-ff0201cc0c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Sequence\ListSequence">
+      <UniqueIdentifier>{ec5d4811-2a88-46c0-8998-df89b6b48210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\UI">
+      <UniqueIdentifier>{fe35ca37-4e08-4eb5-88b7-47c9790ce0f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Test">
+      <UniqueIdentifier>{ec111818-928d-4e73-843e-3a5ff7f3084d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DynamicArray.cpp">
+      <Filter>Исходные файлы\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedList.cpp">
+      <Filter>Исходные файлы\DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence.cpp">
+      <Filter>Исходные файлы\Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="ArraySequence.cpp">
+      <Filter>Исходные файлы\Sequence\ArraySequence</Filter>
+    </ClCompile>
+    <ClCompile Include="ListSequence.cpp">
+      <Filter>Исходные файлы\Sequence\ListSequence</Filter>
+    </ClCompile>
+    <ClCompile Include="view.cpp">
+      <Filter>Исходные файлы\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestArraySequence.cpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestListSequence.cpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDynamicArray.cpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLinkedList.cpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DynamicArray.hpp">
+      <Filter>Исходные файлы\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.hpp">
+      <Filter>Исходные файлы\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.hpp">
+      <Filter>Исходные файлы\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.hpp">
+      <Filter>Исходные файлы\Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="ArraySequence.hpp">
+      <Filter>Исходные файлы\Sequence\ArraySequence</Filter>
+    </ClInclude>
+    <ClInclude Include="ImmutableArraySequence.hpp">
+      <Filter>Исходные файлы\Sequence\ArraySequence</Filter>
+    </ClInclude>
+    <ClInclude Include="ImmutableListSequence.hpp">
+      <Filter>Исходные файлы\Sequence\ListSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="ListSequence.hpp">
+      <Filter>Исходные файлы\Sequence\ListSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="MutableArraySequence.hpp">
+      <Filter>Исходные файлы\Sequence\ArraySequence</Filter>
+    </ClInclude>
+    <ClInclude Include="MutableListSequence.hpp">
+      <Filter>Исходные файлы\Sequence\ListSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="view.hpp">
+      <Filter>Исходные файлы\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TestArraySequence.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestListSequence.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDynamicArray.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLinkedList.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
