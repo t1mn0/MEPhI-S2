@@ -19,6 +19,12 @@
     <Filter Include="Исходные файлы\Test">
       <UniqueIdentifier>{94d8296f-c7c5-4b27-8403-a14f2952e42e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\UI">
+      <UniqueIdentifier>{f70d30ab-27c9-4dab-9ad7-3ea423c5007e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DataTypes">
+      <UniqueIdentifier>{79197cc4-b1be-4b36-ba7a-54d4ab254afb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Queue.hpp">
@@ -38,6 +44,24 @@
     </ClInclude>
     <ClInclude Include="TestDeque.hpp">
       <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Pair.hpp">
+      <Filter>Исходные файлы\DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="view.hpp">
+      <Filter>Исходные файлы\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="String.hpp">
+      <Filter>Исходные файлы\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.hpp">
+      <Filter>Исходные файлы\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="_StringUtilitie_.hpp">
+      <Filter>Исходные файлы\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.hpp">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="TestDeque.cpp">
       <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="view.cpp">
+      <Filter>Исходные файлы\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

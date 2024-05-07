@@ -8,7 +8,7 @@ void TestQueue() {
 	Queue<int>* queue_2 = new Queue<int>(*listseq);
 
 	try {
-		queue_1->dequeue();
+		queue_1->pop();
 		assert(false);
 	}
 	catch (Exception &e) {
@@ -28,7 +28,7 @@ void TestQueue() {
 	assert(queue_2->front() == 0);
 
 	for (int i = 1; i < 6; ++i) {
-		queue_1->enqueue(i);
+		queue_1->push(i);
 	}
 
 	queue_1->concat(*queue_2);
@@ -40,7 +40,7 @@ void TestQueue() {
 	assert(queue_2->size() == 0);
 
 	try {
-		queue_2->dequeue();
+		queue_2->pop();
 		assert(false);
 	}
 	catch (Exception &e) {
@@ -56,16 +56,16 @@ void TestQueue() {
 	}
 
 	for (int i = 0; i < 5; ++i) {
-		assert(queue_1->dequeue() == i + 1);
+		assert(queue_1->pop() == i + 1);
 	}
 	for (int i = 0; i < 5; ++i) {
-		assert(queue_1->dequeue() == 0);
+		assert(queue_1->pop() == 0);
 	}
 
 	assert(queue_1->empty());
 
 	try {
-		queue_1->dequeue();
+		queue_1->pop();
 		assert(false);
 	}
 	catch (Exception& e) {
@@ -82,19 +82,19 @@ void TestQueue() {
 
 
 	for (int i = 0; i < 10; ++i) {
-		queue_1->enqueue(i + 1);
+		queue_1->push(i + 1);
 	}
 
-	queue_2->enqueue(2);
-	queue_2->enqueue(4);
+	queue_2->push(2);
+	queue_2->push(4);
 	
 	assert(!queue_1->contains_subqueue(*queue_2));
 
-	queue_2->dequeue();
-	queue_2->dequeue();
-	queue_2->enqueue(3);
-	queue_2->enqueue(4);
-	queue_2->enqueue(5);
+	queue_2->pop();
+	queue_2->pop();
+	queue_2->push(3);
+	queue_2->push(4);
+	queue_2->push(5);
 
 	assert(queue_1->contains_subqueue(*queue_2));
 
@@ -103,7 +103,7 @@ void TestQueue() {
 		});
 
 	for (int i = 0; i < 5; ++i) {
-		assert(odd_queue.dequeue() % 2);
+		assert(odd_queue.pop() % 2);
 	}
 
 	Queue<int> queue_3 = queue_1->get_subqueue(0, 4);
@@ -112,11 +112,11 @@ void TestQueue() {
 		return number * 100;
 		});
 	for (int i = 0; i < 5; ++i) {
-		assert(queue_3.dequeue() % 100 == 0);
+		assert(queue_3.pop() % 100 == 0);
 	}
 
 	for (int i = 1; i < 16; ++i) {
-		queue_3.enqueue(-i);
+		queue_3.push(-i);
 	}
 
 	int sum = queue_3.reduce(120, [](const int& a, const int& b) -> int {
@@ -124,4 +124,22 @@ void TestQueue() {
 		});
 
 	assert(sum == 0);
+
+	for (int i = 0; i < 5; ++i) {
+		queue_3.pop();
+	}
+
+	for (int i = 1; i < 6; ++i) {
+		queue_3.push(i * 100);
+	}
+
+	Pair<Queue<int>, Queue<int>> pair = queue_3.divide([](const int& value) -> bool { return value >= 0; });
+
+	for (int i = 0; i < pair.first.size(); ++i) {
+		assert(pair.first.pop() >= 0);
+	}
+
+	for (int i = 0; i < pair.second.size(); ++i) {
+		assert(pair.second.pop() < 0);
+	}
 }

@@ -13,7 +13,7 @@ Queue<T>::Queue(const Queue<T>& other) : Queue<T>() {
         listseq->push_back(other.list[i]);
     }
     for (int i = 0; i < listseq->get_size(); ++i) {
-        this->enqueue((*listseq)[i]);
+        this->push((*listseq)[i]);
     }
 }
 
@@ -26,7 +26,7 @@ T Queue<T>::front() const {
 }
 
 template <typename T>
-T Queue<T>::dequeue() {
+T Queue<T>::pop() {
     if (empty()) {
         throw Exception(ErrorCode::out_of_range);
     }
@@ -36,7 +36,7 @@ T Queue<T>::dequeue() {
 }
 
 template <typename T>
-void Queue<T>::enqueue(const T& item) {
+void Queue<T>::push(const T& item) {
     list.push_back(item);
 }
 
@@ -61,7 +61,7 @@ Queue<T> Queue<T>::map(T(*modifier)(const T&)) {
     Queue<T> newQueue;
     ListSequence<T>* modified_list = list.map(modifier);
     for (int i = 0; i < modified_list->get_size(); ++i) {
-        newQueue.enqueue((*modified_list)[i]);
+        newQueue.push((*modified_list)[i]);
     }
     return newQueue;
 }
@@ -71,7 +71,7 @@ Queue<T> Queue<T>::where(bool (*predicate)(const T&)) const {
     Queue<T> newQueue;
     ListSequence<T>* modified_list = list.where(predicate);
     for (int i = 0; i < modified_list->get_size(); ++i) {
-        newQueue.enqueue((*modified_list)[i]);
+        newQueue.push((*modified_list)[i]);
     }
     return newQueue;
 }
@@ -88,7 +88,7 @@ T Queue<T>::reduce(T accumulator, T(*reduceFunc)(const T&, const T&)) const {
 template <typename T>
 void Queue<T>::concat(Queue<T> other) {
     for (int i = 0; i < other.list.get_size(); ++i) {
-        this->enqueue(other.list[i]);
+        this->push(other.list[i]);
     }
 }
 
@@ -100,7 +100,7 @@ Queue<T> Queue<T>::get_subqueue(int startIndex, int endIndex) {
 
     Queue<T> subqueue;
     for (int i = startIndex; i <= endIndex; ++i) {
-        subqueue.enqueue(list[i]);
+        subqueue.push(list[i]);
     }
     return subqueue;
 }
@@ -123,4 +123,21 @@ bool Queue<T>::contains_subqueue(const Queue<T>& subqueue) {
         }
     }
     return j == subqueue.size();
+}
+
+template <typename T>
+Pair<Queue<T>, Queue<T>> Queue<T>::divide(bool (*predicate)(const T&)) {
+    MutableListSequence<T> seq1; // true
+    MutableListSequence<T> seq2; // false
+
+    for (int i = 0; i < list.get_size(); ++i) {
+        if (predicate(list[i])) {
+            seq1.push_back(list[i]);
+        }
+        else {
+            seq2.push_back(list[i]);
+        }
+    }
+
+    return Pair<Queue<T>, Queue<T>>(Queue(seq1), Queue(seq2));
 }
