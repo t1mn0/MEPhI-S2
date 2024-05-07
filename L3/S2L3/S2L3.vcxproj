@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{19287778-cce8-404b-8ba2-9a345433cbc6}</ProjectGuid>
-    <RootNamespace>S2L4</RootNamespace>
+    <ProjectGuid>{d09f2e56-f272-4fe3-b22f-cc7499a68c4e}</ProjectGuid>
+    <RootNamespace>S2L3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,11 +127,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BTree.cpp">
+    <ClInclude Include="Deque.hpp" />
+    <ClInclude Include="Queue.hpp" />
+    <ClInclude Include="Stack.hpp" />
+    <ClInclude Include="TestDeque.hpp" />
+    <ClInclude Include="TestQueue.hpp" />
+    <ClInclude Include="TestStack.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Deque.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="BTree.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Queue.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Stack.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="TestDeque.cpp" />
+    <ClCompile Include="TestQueue.cpp" />
+    <ClCompile Include="TestStack.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

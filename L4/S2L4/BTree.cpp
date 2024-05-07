@@ -1,30 +1,38 @@
-template <typename T>
-struct BTreeNode {
-	T value;
-	BTreeNode* left;
-	BTreeNode* right;
-	BTreeNode(int x) : value(x), left(nullptr), right(nullptr) {}
-	BTreeNode(int x, BTreeNode* left, BTreeNode* right) : value(x), left(left), right(right) {}
-};
+#include "BTree.hpp"
 
 
+
+// Iterative realization
 
 template <typename T>
-class BTree {
-private:
-	BTreeNode* root;
-public:
-	void PLR(); // Parent - Left   - Right
-	void PRL(); // Parent - Right  - Left
-	void LRP(); // Left   - Right  - Parent
-	void LPR(); // Left   - Parent - Right
-	void RLP(); // Right  - Left   - Parent
-	void RPL(); // Right  - Parent - Left
+Sequence<T> BTree<T>::PLR() const {
+    ListSequence<T>* list = new MutableListSequence<T>();
 
-	void insert();
-	void search();
-	void erase();
-	void balance();
+    if (root == nullptr) return list;
 
-	void readString();
-};
+}
+
+template <typename T>
+Sequence<T> BTree<T>::PRL() const {
+
+}
+
+template <typename T>
+Sequence<T> BTree<T>::LRP() const {
+
+}
+
+template <typename T>
+Sequence<T> BTree<T>::LPR() const {
+
+}
+
+template <typename T>
+Sequence<T> BTree<T>::RLP() const {
+
+}
+
+template <typename T>
+Sequence<T> BTree<T>::RPL() const {
+
+}
