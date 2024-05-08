@@ -134,6 +134,8 @@
     <ClInclude Include="String.hpp" />
     <ClInclude Include="Person.hpp" />
     <ClInclude Include="Student.hpp" />
+    <ClInclude Include="Teacher.hpp" />
+    <ClInclude Include="TestDataTypes.hpp" />
     <ClInclude Include="TestDeque.hpp" />
     <ClInclude Include="TestQueue.hpp" />
     <ClInclude Include="TestStack.hpp" />
@@ -151,6 +153,7 @@
     <ClCompile Include="Stack.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TestDataTypes.cpp" />
     <ClCompile Include="TestDeque.cpp" />
     <ClCompile Include="TestQueue.cpp" />
     <ClCompile Include="TestStack.cpp" />

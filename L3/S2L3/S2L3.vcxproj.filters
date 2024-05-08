@@ -60,8 +60,14 @@
     <ClInclude Include="_StringUtilitie_.hpp">
       <Filter>Исходные файлы\DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="TestDataTypes.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
     <ClInclude Include="Student.hpp">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Teacher.hpp">
+      <Filter>Исходные файлы\DataTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="view.cpp">
       <Filter>Исходные файлы\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDataTypes.cpp">
+      <Filter>Исходные файлы\Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

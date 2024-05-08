@@ -1,7 +1,7 @@
 #include "Person.hpp"
 #include "String.hpp"
 
-class Student : public Person {
+class Teacher : public Person {
 private:
     PersonID id;
     String firstName;
@@ -9,13 +9,13 @@ private:
     String lastName;
     String bday;
     String universityName;
-    int yearOfStudy;
+    int yearOfWork;
 
 public:
-    Student(const String& firstName, const String& middleName, const String& lastName,
-        const String& bday, const String& universityName, int yearOfStudy)
+    Teacher(const String& firstName, const String& middleName, const String& lastName,
+        const String& bday, const String& universityName, int yearOfWork)
         : Person(firstName, middleName, lastName, bday),
-        universityName(universityName), yearOfStudy(yearOfStudy) { 
+        universityName(universityName), yearOfWork(yearOfWork) {
         if (isValidName(firstName)) {
             this->firstName = firstName;
         }
@@ -61,12 +61,12 @@ public:
         for (int i = 0; i < bday.size(); ++i) {
             std::cout << bday[i];
         }
-        std::cout << "\n | Current position: Student\n";
+        std::cout << "\n | Current position: Teacher\n";
         std::cout << " | University name: ";
         for (int i = 0; i < universityName.size(); ++i) {
             std::cout << universityName[i];
         }
-        std::cout << "\n | Time of study at university: " << yearOfStudy;
+        std::cout << "\n | Time of work at university: " << yearOfWork;
         std::cout << "\n |__________________________________\n";
     }
 };

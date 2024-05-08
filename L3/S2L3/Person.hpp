@@ -9,14 +9,17 @@ private:
     int id;
 
 public:
-    PersonID() : id(nextID++) {}
+    PersonID() {
+        id = nextID;
+        nextID++;
+    }
 
     int getID() const{
         return id;
     }
 };
 
-int PersonID::nextID = 1;
+int PersonID::nextID = 0;
 
 class Person {
 private:
@@ -31,19 +34,30 @@ public:
         if (isValidName(firstName)) {
             this->firstName = firstName;
         }
+        else {
+            throw Exception(ErrorCode::invalid_argument);
+        }
         if (isValidName(middleName)) {
             this->middleName = middleName;
+        }
+        else {
+            throw Exception(ErrorCode::invalid_argument);
         }
         if (isValidName(lastName)) {
             this->lastName = lastName;
         }
+        else {
+            throw Exception(ErrorCode::invalid_argument);
+        }
         if (isValidDate(bday)) {
             this->bday = bday;
         }
-        id = PersonID();
+        else {
+            throw Exception(ErrorCode::invalid_argument);
+        }
     }
 
-    virtual ~Person() {}
+    ~Person() {}
 
     PersonID getID() const { return id; }
     String getFirstName() const { return firstName; }
@@ -69,7 +83,7 @@ public:
     }
     void setMiddleName(const String& newMiddleName) {
         if (isValidName(newMiddleName)) {
-            middleName = newMiddleName;
+            this->middleName = newMiddleName;
         }
         else {
             throw Exception(ErrorCode::invalid_argument);
@@ -77,14 +91,14 @@ public:
     }
     void setLastName(const String& newLastName) {
         if (isValidName(newLastName)) {
-            lastName = newLastName;
+            this->lastName = newLastName;
         }
         else {
             throw Exception(ErrorCode::invalid_argument);
         }
     }
     void setBirthDate(const String& newBDay) {
-        if (isValidDate(bday)) {
+        if (isValidDate(this->bday)) {
             bday = newBDay;
         }
         else {
@@ -93,22 +107,24 @@ public:
     }
 
     virtual void printInfo() const {
-        std::cout << "ID: " << id.getID();
-        std::cout << " FirstName: ";
+        std::cout << "\n |----------------------------------\n";
+        std::cout << " | ID: " << id.getID() << '\n';
+        std::cout << " | FirstName: ";
         for (int i = 0; i < firstName.size(); ++i) {
             std::cout << firstName[i];
         }
-        std::cout << " MiddleName: ";
+        std::cout << "\n | MiddleName: ";
         for (int i = 0; i < middleName.size(); ++i) {
             std::cout << middleName[i];
         }
-        std::cout << " LastName: ";
+        std::cout << "\n | LastName: ";
         for (int i = 0; i < lastName.size(); ++i) {
             std::cout << lastName[i];
         }
-        std::cout << " Birthday: ";
+        std::cout << "\n | Birthday: ";
         for (int i = 0; i < bday.size(); ++i) {
             std::cout << bday[i];
         }
+        std::cout << "\n |__________________________________\n";
     }
 };

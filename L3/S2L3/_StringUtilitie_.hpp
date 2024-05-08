@@ -19,16 +19,17 @@ bool isValidDate(const String& s) {
     if (s[2] != '-' || s[5] != '-')
         return false;
 
-    String day = s.substr(0, 2);
-    String month = s.substr(3, 2);
-    String year = s.substr(6, 4);
+    String* day = new String(s.substr(0, 2));
+    String* month = new String(s.substr(3, 2));
+    String* year = new String(s.substr(6, 4));
 
-    if (!isNumber(day) || !isNumber(month) || !isNumber(year))
+    if (!isNumber(*day) || !isNumber(*month) || !isNumber(*year)) {
         return false;
+    }
 
-    int dayNum = std::stoi(day.c_str());
-    int monthNum = std::stoi(month.c_str());
-    int yearNum = std::stoi(year.c_str());
+    int dayNum = std::stoi(day->c_str());
+    int monthNum = std::stoi(month->c_str());
+    int yearNum = std::stoi(year->c_str());
 
     if (yearNum < 1900)
         return false;
@@ -63,5 +64,6 @@ bool isValidName(const String& name) {
     for (int i = 0; i < name.size(); ++i) {
         if (!isalpha(name[i])) {
             return false;
+        }
     }
 }

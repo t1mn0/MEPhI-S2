@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "../../../../L2/S2L2/MutableArraySequence.hpp"
 
@@ -8,7 +9,7 @@ public:
     String() {}
 
     String(const char* cstr) {
-        while (*cstr != '0') {
+        while (*cstr != '\0') {
             arrayseq.push_back(*cstr++);
         }
     }
@@ -77,7 +78,7 @@ public:
         for (int i = 0; i < this->size(); ++i) {
             buffer[i] = arrayseq.get(i);
         }
-        buffer[this->size()] = '0';
+        buffer[this->size()] = '\0';
         return buffer;
     }
 };
