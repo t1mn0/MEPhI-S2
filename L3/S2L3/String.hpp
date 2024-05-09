@@ -15,6 +15,7 @@ public:
     }
 
     String(const String& other){
+        this->arrayseq.clear();
         for (int i = 0; i < other.size(); ++i) {
             arrayseq.push_back(other.arrayseq.get(i));
         }
@@ -22,10 +23,28 @@ public:
 
     ~String() {}
 
-
+    String& operator=(const String& other) {
+        if (this != &other) {
+            arrayseq.clear();
+            for (int i = 0; i < other.size(); ++i) {
+                arrayseq.push_back(other[i]);
+            }
+        }
+        return *this;
+    }
 
     char operator[](int index) const {
         return arrayseq.get(index);
+    }
+
+    bool operator==(const String& other) const {
+        if (other.size() != this->size()) return false;
+        for (int i = 0; i < other.size(); ++i) {
+            if (this->operator[](i) != other.operator[](i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     void push_back(char c) {
@@ -81,4 +100,5 @@ public:
         buffer[this->size()] = '\0';
         return buffer;
     }
+
 };
