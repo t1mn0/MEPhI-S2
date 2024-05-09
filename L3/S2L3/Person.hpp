@@ -1,6 +1,6 @@
 #pragma once
+
 #include <iostream>
-#include "String.hpp"
 #include "_StringUtilitie_.hpp"
 
 class PersonID {
@@ -18,8 +18,6 @@ public:
         return id;
     }
 };
-
-int PersonID::nextID = 0;
 
 class Person {
 private:

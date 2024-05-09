@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "../../../../L2/S2L2/MutableArraySequence.hpp"
 
 class String {
@@ -33,8 +32,8 @@ public:
         return *this;
     }
 
-    char operator[](int index) const {
-        return arrayseq.get(index);
+    char operator[](size_t index) const {
+        return arrayseq.get(static_cast<int>(index));
     }
 
     bool operator==(const String& other) const {
@@ -45,6 +44,10 @@ public:
             }
         }
         return true;
+    }
+
+    bool operator!=(const String& other) const {
+        return !(this->operator==(other));
     }
 
     void push_back(char c) {

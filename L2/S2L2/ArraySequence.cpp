@@ -232,7 +232,7 @@ ArraySequence<T>* ArraySequence<T>::map(T(*func)(const T&)) {
     ArraySequence<T>* seq = Instance();
 
     for (size_t i = 0; i < this->get_size(); ++i) {
-        seq->set(func((*core)[i]), i);
+        seq->set(func((*core)[static_cast<int>(i)]), i);
     }
 
     return seq;

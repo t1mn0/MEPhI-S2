@@ -1,9 +1,9 @@
 #include "../../../../L2/S2L2/Exception.hpp"
 #include <cassert>
-#include "Person.hpp"
 #include "Student.hpp"
 #include "Teacher.hpp"
-#include "String.hpp"
+
+int PersonID::nextID = 0;
 
 void TestDataTypes() {
     // Test struct "Person"

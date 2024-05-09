@@ -5,6 +5,7 @@
 #include "view.hpp"
 
 int main() {
+	// ADD CAST FROM ADAPTERS TO ADAPTERS
 	TestLinkedList();
 	TestDynamicArray();
 	TestListSequence();

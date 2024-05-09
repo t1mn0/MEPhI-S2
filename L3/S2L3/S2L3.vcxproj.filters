@@ -98,5 +98,8 @@
     <ClCompile Include="TestDataTypes.cpp">
       <Filter>Исходные файлы\Test</Filter>
     </ClCompile>
+    <ClCompile Include="_StringUtilite_.cpp">
+      <Filter>Исходные файлы\DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
+
 #include "Person.hpp"
-#include "String.hpp"
 
 class Teacher : public Person {
 private:
@@ -69,5 +69,17 @@ public:
         }
         std::cout << "\n | Time of work at university: " << yearOfWork;
         std::cout << "\n |__________________________________\n";
+    }
+
+    bool operator==(const Teacher& other) const {
+        if (this->firstName != other.firstName) return false;
+        if (this->middleName != other.middleName) return false;
+        if (this->lastName != other.lastName) return false;
+        if (this->bday != other.bday) return false;
+        return this->universityName == other.universityName && this->yearOfWork == other.yearOfWork;
+    }
+
+    bool operator!=(const Teacher& other) const {
+        return !(*this == other);
     }
 };
