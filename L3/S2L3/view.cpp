@@ -108,14 +108,11 @@ void run() {
 		else if (command == "4") { // print adapter
 			system("cls");
 			state = printAdapter();
+			std::cout << ">>> ";
+			std::cin >> command;
+			system("cls");
 			if (state) {
-				system("cls");
 				std::cout << YELLOW << "The operation was aborted\n" << RESET;
-			}
-			else {
-				std::cout << ">>> ";
-				std::cin >> command;
-				system("cls");
 			}
 			menu();
 			bad_count = 10;
@@ -123,14 +120,11 @@ void run() {
 		else if (command == "5") { // get 
 			system("cls");
 			state = get();
+			std::cout << ">>> ";
+			std::cin >> command;
+			system("cls");
 			if (state) {
-				system("cls");
 				std::cout << YELLOW << "The operation was aborted\n" << RESET;
-			}
-			else {
-				std::cout << ">>> ";
-				std::cin >> command;
-				system("cls");
 			}
 			menu();
 			bad_count = 10;
@@ -138,14 +132,11 @@ void run() {
 		else if (command == "6") { // push 
 			system("cls");
 			state = push();
+			std::cout << ">>> ";
+			std::cin >> command;
+			system("cls");
 			if (state) {
-				system("cls");
 				std::cout << YELLOW << "The operation was aborted\n" << RESET;
-			}
-			else {
-				std::cout << ">>> ";
-				std::cin >> command;
-				system("cls");
 			}
 			menu();
 			bad_count = 10;
@@ -153,14 +144,11 @@ void run() {
 		else if (command == "7") { // pop 
 			system("cls");
 			state = pop();
+			std::cout << ">>> ";
+			std::cin >> command;
+			system("cls");
 			if (state) {
-				system("cls");
 				std::cout << YELLOW << "The operation was aborted\n" << RESET;
-			}
-			else {
-				std::cout << ">>> ";
-				std::cin >> command;
-				system("cls");
 			}
 			menu();
 			bad_count = 10;
@@ -239,10 +227,10 @@ bool isValidInt(std::string s_defaultElement) {
 }
 
 std::string getTypeAdapter() {
-	std::cout << GREEN << "> 1) Stack\n" << RESET;
-	std::cout << GREEN << "> 2) Queue\n" << RESET;
-	std::cout << GREEN << "> 3) Deque\n" << RESET;
-	std::cout << "Input the " << GREEN << "type" << RESET << " of adapter:\n";
+	std::cout << GREEN << "\n> 1) stack\n" << RESET;
+	std::cout << GREEN << "> 2) queue\n" << RESET;
+	std::cout << GREEN << "> 3) deque\n" << RESET;
+	std::cout << "\nInput the " << GREEN << "type" << RESET << " of adapter:\n";
 
 	std::string type_adapter;
 	int bad_count = 10;
@@ -251,13 +239,16 @@ std::string getTypeAdapter() {
 		std::cout << ">>> ";
 		std::cin >> type_adapter;
 
-		if (type_adapter == "1") {
+		if (type_adapter == "1" || type_adapter == "stack" || type_adapter == "Stack") {
+			type_adapter = "1";
 			break;
 		}
-		else if (type_adapter == "2") {
+		else if (type_adapter == "2" || type_adapter == "queue" || type_adapter == "Queue") {
+			type_adapter = "2";
 			break;
 		}
-		else if (type_adapter == "3") {
+		else if (type_adapter == "3" || type_adapter == "deque" || type_adapter == "Deque") {
+			type_adapter = "3";
 			break;
 		}
 		else if (type_adapter == "abort") {
@@ -505,9 +496,10 @@ void infoAdapter(int typeadapter, int index) {
 	if (typeadapter == 1) {
 		if (index >= 0 && index < stackList.size()) {
 			std::cout << LINE;
-			std::cout << std::setw(90) << "Adapter - " << BLUE << "Stack " << RESET << index << '\n';
+			std::cout << std::setw(83) << "Adapter - " << BLUE << "Stack " << RESET << "[" << index << "]" << '\n';
 			std::cout << LINE;
 
+			std::cout << "Type of adapter: " << BLUE << "stack" << '\n' << RESET;
 			std::cout << "The size of adapter: " << BLUE << stackList[index].size() << '\n' << RESET;
 			std::cout << LANE << '\n';
 		}
@@ -518,9 +510,10 @@ void infoAdapter(int typeadapter, int index) {
 	else if (typeadapter == 2) {
 		if (index >= 0 && index < queueList.size()) {
 			std::cout << LINE;
-			std::cout << std::setw(90) << "Adapter - " << BLUE << "Queue " << RESET << index << '\n';
+			std::cout << std::setw(83) << "Adapter - " << BLUE << "Queue " << RESET << "[" << index << "]" << '\n';
 			std::cout << LINE;
 
+			std::cout << "Type of adapter: " << BLUE << "queue" << '\n' << RESET;
 			std::cout << "The size of adapter: " << BLUE << queueList[index].size() << '\n' << RESET;
 			std::cout << LANE << '\n';
 		}
@@ -531,9 +524,10 @@ void infoAdapter(int typeadapter, int index) {
 	else if (typeadapter == 3) {
 		if (index >= 0 && index < dequeList.size()) {
 			std::cout << LINE;
-			std::cout << std::setw(90) << "Adapter - " << BLUE << "Deque " << RESET << index << '\n';
+			std::cout << std::setw(83) << "Adapter - " << BLUE << "Deque " << RESET << "[" << index << "]" << '\n';
 			std::cout << LINE;
 
+			std::cout << "Type of adapter: " << BLUE << "deque" << '\n' << RESET;
 			std::cout << "The size of adapter: " << BLUE << dequeList[index].size() << '\n' << RESET;
 			std::cout << LANE << '\n';
 		}
@@ -545,7 +539,9 @@ void infoAdapter(int typeadapter, int index) {
 
 int check_state() {
 	if (stackList.size() == 0) {
+		std::cout << "\n" << LINE;
 		std::cout << RED << "There are no one stack\n" << RESET;
+		std::cout << LINE;
 	}
 	else {
 		for (int i = 0; i < stackList.size(); ++i) {
@@ -554,7 +550,9 @@ int check_state() {
 	}
 
 	if (queueList.size() == 0) {
+		std::cout << "\n" << LINE;
 		std::cout << RED << "There are no one queue\n" << RESET;
+		std::cout << LINE;
 	}
 	else {
 		for (int i = 0; i < queueList.size(); ++i) {
@@ -563,7 +561,9 @@ int check_state() {
 	}
 
 	if (dequeList.size() == 0) {
+		std::cout << "\n" << LINE;
 		std::cout << RED << "There are no one deque\n" << RESET;
+		std::cout << LINE;
 	}
 	else {
 		for (int i = 0; i < dequeList.size(); ++i) {
@@ -609,7 +609,7 @@ int select() {
 				return index + stackList.size();
 			}
 			else {
-				std::cout << RED << "Invalid index for queue-list: " << s_index << "' is not found\n" << RESET;
+				std::cout << RED << "Invalid index for queue-list: " << s_index << " is not found\n" << RESET;
 				bad_count--;
 			}
 		}
@@ -619,7 +619,7 @@ int select() {
 				return index + stackList.size() + queueList.size();
 			}
 			else {
-				std::cout << RED << "Invalid index for deque-list: " << s_index << "' is not found\n" << RESET;
+				std::cout << RED << "Invalid index for deque-list: " << s_index << " is not found\n" << RESET;
 				bad_count--;
 			}
 		}
@@ -644,7 +644,7 @@ int printAdapter() {
 		for (int i = 0; i < stackList[index].size(); ++i) {
 			list.push_back(copystack.pop());
 		}
-		for (size_t i = 0; i < list.get_size(); ++i) {
+		for (int i = list.get_size() - 1; i >= 0; --i) {
 			std::cout << list[i] << " ";
 		}
 		std::cout << "\n";
@@ -662,14 +662,14 @@ int printAdapter() {
 		}
 		std::cout << "\n";
 	}
-	else if (index < dequeList.size()) {
+	else if (index < stackList.size() + queueList.size() + dequeList.size()) {
 		index -= stackList.size();
 		index -= queueList.size();
 		std::cout << BLUE << "Deque content:\n" << RESET;
 		Deque<int> copydeque = *(new Deque<int>(dequeList[index]));
 		MutableListSequence<int> list;
 		for (int i = 0; i < dequeList[index].size(); ++i) {
-			list.push_back(copydeque.pop_back());
+			list.push_back(copydeque.pop_front());
 		}
 		for (size_t i = 0; i < list.get_size(); ++i) {
 			std::cout << list[i] << " ";
@@ -698,10 +698,10 @@ int get() {
 		index -= stackList.size();
 		std::cout << "The front of queue: " << BLUE << queueList[index].front() << RESET << '\n';
 	}
-	else if (index < dequeList.size()) {
+	else if (index < stackList.size() + queueList.size() + dequeList.size()) {
 		index -= stackList.size();
 		index -= queueList.size();
-		int bad_count = 0;
+		int bad_count = 10;
 		std::string type_get;
 		std::cout << "Input the " << GREEN << "type" << RESET << " of get (front = 1 / back = 2):\n";
 		while (bad_count) {
@@ -720,7 +720,7 @@ int get() {
 				break;
 			}
 			else {
-				std::cout << RED << "TypeGet = '" << type_get << "' is not valid type for get element\n" << RESET;
+				std::cout << RED << "TypeGet = '" << type_get << " is not valid type for get element\n" << RESET;
 				bad_count--;
 			}
 		}
@@ -739,10 +739,125 @@ int get() {
 	return 0;
 }
 
-int push() {
+int push()	 {
 	int index = select();
 
-	// ... //
+	if (index < 0) {
+		return -1;
+	}
+
+	std::string s_value;
+	int value;
+	int bad_count = 10;
+
+
+	if (index < stackList.size()) {
+		std::cout << "Input the " << GREEN << "value for push" << RESET << " in stack\n";
+		while (bad_count) {
+			std::cout << ">>> ";
+			std::cin >> s_value;
+			if (isValidInt(s_value)) {
+				int value = stoi(s_value);
+				stackList[index].push(value);
+				break;
+			}
+			else if (s_value == "abort") {
+				break;
+			}
+			else {
+				std::cout << RED << "Value = '" << s_value << "' is not valid value\n" << RESET;
+				bad_count--;
+			}
+		}
+		if (s_value == "abort") {
+			return -1;
+		}
+		else if (bad_count == 0) {
+			return -1;
+		}
+	}
+	else if (index < stackList.size() + queueList.size()) {
+		index -= stackList.size();
+		std::cout << "Input the " << GREEN << "value for push" << RESET << " in queue\n";
+		while (bad_count) {
+			std::cout << ">>> ";
+			std::cin >> s_value;
+			if (isValidInt(s_value)) {
+				int value = stoi(s_value);
+				queueList[index].push(value);
+				break;
+			}
+			else if (s_value == "abort") {
+				break;
+			}
+			else {
+				std::cout << RED << "Value = '" << s_value << "' is not valid value\n" << RESET;
+				bad_count--;
+			}
+		}
+		if (s_value == "abort") {
+			return -1;
+		}
+		else if (bad_count == 0) {
+			return -1;
+		}
+	}
+	else if (index < stackList.size() + queueList.size() + dequeList.size()) {
+		index -= stackList.size();
+		index -= queueList.size();
+
+		std::string type_push;
+
+		std::cout << "Input the " << GREEN << "type" << RESET << " of push (push_front = 1 / push_back = 2):\n";
+		while (bad_count) {
+			std::cout << ">>> ";
+			std::cin >> type_push;
+
+			if (type_push == "1" || type_push == "2") {
+				break;
+			}
+			else if (type_push == "abort") {
+				break;
+			}
+			else {
+				std::cout << RED << "TypePush = '" << type_push << "' is not valid type for push element\n" << RESET;
+				bad_count--;
+			}
+		}
+
+		if (!bad_count) {
+			return -1;
+		}
+
+		if (type_push == "abort") {
+			return -1;
+		}
+
+		std::cout << "Input the " << GREEN << "value for push" << RESET << " in deque\n";
+		while (bad_count) {
+			std::cout << ">>> ";
+			std::cin >> s_value;
+			if (isValidInt(s_value)) {
+				int value = stoi(s_value);
+				if (type_push == "1") dequeList[index].push_front(value);
+				if (type_push == "2") dequeList[index].push_back(value);
+				break;
+			}
+			else if (s_value == "abort") {
+				break;
+			}
+			else {
+				std::cout << RED << "Value = '" << s_value << "' is not valid value\n" << RESET;
+				bad_count--;
+			}
+		}
+		if (s_value == "abort") {
+			return -1;
+		}
+		else if (bad_count == 0) {
+			return -1;
+		}
+	}
 
 	return 0;
 }
@@ -760,7 +875,7 @@ int pop() {
 		}
 		else {
 			std::cout << RED << "Empty adapter" << RESET << '\n';
-			return 0;
+			return -1;
 		}
 	}
 	else if (index < stackList.size() + queueList.size()) {
@@ -770,13 +885,13 @@ int pop() {
 		}
 		else {
 			std::cout << RED << "Empty adapter" << RESET << '\n';
-			return 0;
+			return -1;
 		}
 	}
-	else if (index < dequeList.size()) {
+	else if (index < stackList.size() + queueList.size() + dequeList.size()) {
 		index -= stackList.size();
 		index -= queueList.size();
-		int bad_count = 0;
+		int bad_count = 10;
 		std::string type_get;
 		std::cout << "Input the " << GREEN << "type" << RESET << " of pop (pop_front = 1 / pop_back = 2):\n";
 		while (bad_count) {
@@ -789,7 +904,7 @@ int pop() {
 				}
 				else {
 					std::cout << RED << "Empty adapter" << RESET << '\n';
-					return 0;
+					return -1;
 				}
 				break;
 			}
@@ -799,7 +914,7 @@ int pop() {
 				}
 				else {
 					std::cout << RED << "Empty adapter" << RESET << '\n';
-					return 0;
+					return -1;
 				}
 				break;
 			}
