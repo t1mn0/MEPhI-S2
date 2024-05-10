@@ -35,6 +35,9 @@ void run();
 int create_adapter();
 int check_state();
 int printAdapter();
+int get();
+int push();
+int pop();
 
 // -----------------------------------------------------------------------------------------------------------------
 // Base
@@ -47,13 +50,11 @@ void menu() {
 	std::cout << GREEN << "> 0) exit \n" << RESET;														// YES			
 	std::cout << GREEN << "> 1) menu\n" << RESET;														// YES
 	std::cout << GREEN << "> 2) create adapter\n" << RESET;												// YES
-	std::cout << GREEN << "> 3) remove adapter\n" << RESET;												
-	std::cout << GREEN << "> 4) check state\n" << RESET;												// YES
-	std::cout << GREEN << "> 5) print adapter\n" << RESET;												// YES
-	std::cout << GREEN << "> 6) get\n" << RESET;
-	std::cout << GREEN << "> 7) push\n" << RESET;
-	std::cout << GREEN << "> 8) pop\n" << RESET;									
-	std::cout << GREEN << "> 9) get size\n" << RESET;
+	std::cout << GREEN << "> 3) check state\n" << RESET;												// YES
+	std::cout << GREEN << "> 4) print adapter\n" << RESET;												// YES
+	std::cout << GREEN << "> 5) get\n" << RESET;														// YES
+	std::cout << GREEN << "> 6) push\n" << RESET;														// 
+	std::cout << GREEN << "> 7) pop\n" << RESET;														// YES
 	std::cout << LINE;
 	std::cout << RED << "Warning" << RESET << ": the program will finished automatically after 10 consecutive unsuccessful input attempts\n";
 	std::cout << LINE;
@@ -96,7 +97,7 @@ void run() {
 			menu();
 			bad_count = 10;
 		}
-		else if (command == "4") { // check state
+		else if (command == "3") { // check state
 			system("cls");
 			check_state();
 			std::cout << ">>> ";
@@ -104,9 +105,54 @@ void run() {
 			system("cls");
 			menu();
 		}
-		else if (command == "5") { // print adapter
+		else if (command == "4") { // print adapter
 			system("cls");
 			state = printAdapter();
+			if (state) {
+				system("cls");
+				std::cout << YELLOW << "The operation was aborted\n" << RESET;
+			}
+			else {
+				std::cout << ">>> ";
+				std::cin >> command;
+				system("cls");
+			}
+			menu();
+			bad_count = 10;
+		}
+		else if (command == "5") { // get 
+			system("cls");
+			state = get();
+			if (state) {
+				system("cls");
+				std::cout << YELLOW << "The operation was aborted\n" << RESET;
+			}
+			else {
+				std::cout << ">>> ";
+				std::cin >> command;
+				system("cls");
+			}
+			menu();
+			bad_count = 10;
+		}
+		else if (command == "6") { // push 
+			system("cls");
+			state = push();
+			if (state) {
+				system("cls");
+				std::cout << YELLOW << "The operation was aborted\n" << RESET;
+			}
+			else {
+				std::cout << ">>> ";
+				std::cin >> command;
+				system("cls");
+			}
+			menu();
+			bad_count = 10;
+		}
+		else if (command == "7") { // pop 
+			system("cls");
+			state = pop();
 			if (state) {
 				system("cls");
 				std::cout << YELLOW << "The operation was aborted\n" << RESET;
@@ -196,7 +242,7 @@ std::string getTypeAdapter() {
 	std::cout << GREEN << "> 1) Stack\n" << RESET;
 	std::cout << GREEN << "> 2) Queue\n" << RESET;
 	std::cout << GREEN << "> 3) Deque\n" << RESET;
-	std::cout << "Input the " << GREEN << "type" << " of adapter:\n";
+	std::cout << "Input the " << GREEN << "type" << RESET << " of adapter:\n";
 
 	std::string type_adapter;
 	int bad_count = 10;
@@ -222,6 +268,8 @@ std::string getTypeAdapter() {
 			bad_count--;
 		}
 	}
+
+	std::cout << '\n';
 
 	if (bad_count == 0) {
 		return "ERR-0001-ATTEXP"; // attempts expired
@@ -276,7 +324,7 @@ int fillStack(Stack<int>& stack, int size) {
 
 	int i = 0;
 	while (bad_count && i < size) {
-		std::cout << "Input the " << GREEN << "[" << i << "]" << RESET << " for stack\n";
+		std::cout << "Input the " << GREEN << "new element" << RESET << " for pushing in stack (added " << i << "/" << size << ")\n";
 		std::cout << ">>> ";
 		std::cin >> element;
 
@@ -321,7 +369,7 @@ int fillQueue(Queue<int>& queue, int size) {
 
 	int i = 0;
 	while (bad_count && i < size) {
-		std::cout << "Input the " << GREEN << "[" << i << "]" << RESET << " for queue\n";
+		std::cout << "Input the " << GREEN << "new element" << RESET << " for pushing in queue (added " << i << "/" << size << ")\n";
 		std::cout << ">>> ";
 		std::cin >> element;
 
@@ -371,7 +419,7 @@ int fillDeque(Deque<int>& deque, int size) {
 		std::cout << ">>> ";
 		std::cin >> typepush;
 		if (typepush == "1" || typepush == "2") {
-			std::cout << "Input the " << GREEN << "new element" << RESET << " in deque (added " << i << "/" << size<< ")\n";
+			std::cout << "Input the " << GREEN << "new element" << RESET << " for pushing in deque (added " << i << "/" << size << ")\n";
 			std::cout << ">>> ";
 			std::cin >> element;
 
@@ -421,7 +469,6 @@ int fillDeque(Deque<int>& deque, int size) {
 	return 0;
 }
 
-
 int create_adapter() {
 	promptAbort();
 
@@ -458,7 +505,7 @@ void infoAdapter(int typeadapter, int index) {
 	if (typeadapter == 1) {
 		if (index >= 0 && index < stackList.size()) {
 			std::cout << LINE;
-			std::cout << std::setw(90) << "Adapter - Stack " << index << '\n';
+			std::cout << std::setw(90) << "Adapter - " << BLUE << "Stack " << RESET << index << '\n';
 			std::cout << LINE;
 
 			std::cout << "The size of adapter: " << BLUE << stackList[index].size() << '\n' << RESET;
@@ -471,7 +518,7 @@ void infoAdapter(int typeadapter, int index) {
 	else if (typeadapter == 2) {
 		if (index >= 0 && index < queueList.size()) {
 			std::cout << LINE;
-			std::cout << std::setw(90) << "Adapter - Queue " << index << '\n';
+			std::cout << std::setw(90) << "Adapter - " << BLUE << "Queue " << RESET << index << '\n';
 			std::cout << LINE;
 
 			std::cout << "The size of adapter: " << BLUE << queueList[index].size() << '\n' << RESET;
@@ -484,7 +531,7 @@ void infoAdapter(int typeadapter, int index) {
 	else if (typeadapter == 3) {
 		if (index >= 0 && index < dequeList.size()) {
 			std::cout << LINE;
-			std::cout << std::setw(90) << "Adapter - Deque " << index << '\n';
+			std::cout << std::setw(90) << "Adapter - " << BLUE << "Deque " << RESET << index << '\n';
 			std::cout << LINE;
 
 			std::cout << "The size of adapter: " << BLUE << dequeList[index].size() << '\n' << RESET;
@@ -552,7 +599,8 @@ int select() {
 				return index;
 			}
 			else {
-				std::cout << RED << "Invalid index for stack-list: " << s_index << "' is not found\n" << RESET;
+				std::cout << RED << "Invalid index for stack-list: " << s_index << " is not found\n" << RESET;
+				bad_count--;
 			}
 		}
 		else if (type_adapter == "2") {
@@ -562,15 +610,17 @@ int select() {
 			}
 			else {
 				std::cout << RED << "Invalid index for queue-list: " << s_index << "' is not found\n" << RESET;
+				bad_count--;
 			}
 		}
 		else if (type_adapter == "3") {
 			if (isValidIndex(s_index, dequeList.size())) {
 				int index = stoi(s_index);
-				return index + stackList.size() + dequeList.size();
+				return index + stackList.size() + queueList.size();
 			}
 			else {
 				std::cout << RED << "Invalid index for deque-list: " << s_index << "' is not found\n" << RESET;
+				bad_count--;
 			}
 		}
 	}
@@ -590,14 +640,188 @@ int printAdapter() {
 	if (index < stackList.size()) {
 		std::cout << BLUE << "Stack content:\n" << RESET;
 		Stack<int> copystack = *(new Stack<int>(stackList[index]));
+		MutableListSequence<int> list;
 		for (int i = 0; i < stackList[index].size(); ++i) {
-			std::cout << copystack.pop() << " ";
+			list.push_back(copystack.pop());
+		}
+		for (size_t i = 0; i < list.get_size(); ++i) {
+			std::cout << list[i] << " ";
 		}
 		std::cout << "\n";
 	}
-
+	else if (index < stackList.size() + queueList.size()) {
+		index -= stackList.size();
+		std::cout << BLUE << "Queue content:\n" << RESET;
+		Queue<int> copyqueue = *(new Queue<int>(queueList[index]));
+		MutableListSequence<int> list;
+		for (int i = 0; i < queueList[index].size(); ++i) {
+			list.push_back(copyqueue.pop());
+		}
+		for (size_t i = 0; i < list.get_size(); ++i) {
+			std::cout << list[i] << " ";
+		}
+		std::cout << "\n";
+	}
+	else if (index < dequeList.size()) {
+		index -= stackList.size();
+		index -= queueList.size();
+		std::cout << BLUE << "Deque content:\n" << RESET;
+		Deque<int> copydeque = *(new Deque<int>(dequeList[index]));
+		MutableListSequence<int> list;
+		for (int i = 0; i < dequeList[index].size(); ++i) {
+			list.push_back(copydeque.pop_back());
+		}
+		for (size_t i = 0; i < list.get_size(); ++i) {
+			std::cout << list[i] << " ";
+		}
+		std::cout << "\n";
+	}
 	
 
 	return 0;
 }
 
+// -----------------------------------------------------------------------------------------------------------------
+// Get / push / pop
+
+int get() {
+	int index = select();
+
+	if (index < 0) {
+		return -1;
+	}
+
+	if (index < stackList.size()) {
+		std::cout << "The top of stack: " << BLUE << stackList[index].top() << RESET << '\n';
+	}
+	else if (index < stackList.size() + queueList.size()) {
+		index -= stackList.size();
+		std::cout << "The front of queue: " << BLUE << queueList[index].front() << RESET << '\n';
+	}
+	else if (index < dequeList.size()) {
+		index -= stackList.size();
+		index -= queueList.size();
+		int bad_count = 0;
+		std::string type_get;
+		std::cout << "Input the " << GREEN << "type" << RESET << " of get (front = 1 / back = 2):\n";
+		while (bad_count) {
+			std::cout << ">>> ";
+			std::cin >> type_get;
+
+			if (type_get == "1") {
+				std::cout << "The front of deque: " << BLUE << dequeList[index].front() << RESET << '\n';
+				break;
+			}
+			else if (type_get == "2") {
+				std::cout << "The back of deque: " << BLUE << dequeList[index].back() << RESET << '\n';
+				break;
+			}
+			else if (type_get == "abort") {
+				break;
+			}
+			else {
+				std::cout << RED << "TypeGet = '" << type_get << "' is not valid type for get element\n" << RESET;
+				bad_count--;
+			}
+		}
+
+		std::cout << '\n';
+
+		if (bad_count == 0) {
+			return -1; 
+		}
+		else if (type_get == "abort") {
+			return -1;
+		}
+	}
+
+
+	return 0;
+}
+
+int push() {
+	int index = select();
+
+	// ... //
+
+	return 0;
+}
+
+int pop() {
+	int index = select();
+
+	if (index < 0) {
+		return -1;
+	}
+
+	if (index < stackList.size()) {
+		if (!stackList[index].empty()) {
+			std::cout << "The deleted top of stack: " << BLUE << stackList[index].pop() << RESET << '\n';
+		}
+		else {
+			std::cout << RED << "Empty adapter" << RESET << '\n';
+			return 0;
+		}
+	}
+	else if (index < stackList.size() + queueList.size()) {
+		index -= stackList.size();
+		if (!queueList[index].empty()) {
+			std::cout << "The deleted front of queue: " << BLUE << queueList[index].pop() << RESET << '\n';
+		}
+		else {
+			std::cout << RED << "Empty adapter" << RESET << '\n';
+			return 0;
+		}
+	}
+	else if (index < dequeList.size()) {
+		index -= stackList.size();
+		index -= queueList.size();
+		int bad_count = 0;
+		std::string type_get;
+		std::cout << "Input the " << GREEN << "type" << RESET << " of pop (pop_front = 1 / pop_back = 2):\n";
+		while (bad_count) {
+			std::cout << ">>> ";
+			std::cin >> type_get;
+
+			if (type_get == "1") {
+				if (!dequeList[index].empty()) {
+					std::cout << "The deleted front of deque: " << BLUE << dequeList[index].pop_front() << RESET << '\n';
+				}
+				else {
+					std::cout << RED << "Empty adapter" << RESET << '\n';
+					return 0;
+				}
+				break;
+			}
+			else if (type_get == "2") {
+				if (!dequeList[index].empty()) {
+					std::cout << "The deleted back of deque: " << BLUE << dequeList[index].pop_back() << RESET << '\n';
+				}
+				else {
+					std::cout << RED << "Empty adapter" << RESET << '\n';
+					return 0;
+				}
+				break;
+			}
+			else if (type_get == "abort") {
+				break;
+			}
+			else {
+				std::cout << RED << "TypePop = '" << type_get << "' is not valid type for pop element\n" << RESET;
+				bad_count--;
+			}
+		}
+
+		std::cout << '\n';
+
+		if (bad_count == 0) {
+			return -1;
+		}
+		else if (type_get == "abort") {
+			return -1;
+		}
+	}
+
+
+	return 0;
+}
