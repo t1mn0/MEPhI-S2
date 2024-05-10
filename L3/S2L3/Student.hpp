@@ -14,6 +14,9 @@ private:
     int yearOfStudy;
 
 public:
+    Student()
+        : Person(String("a"), String("a"), String("a"), String("01-01-2001")), id(), universityName("a"), yearOfStudy(0){}
+
     Student(const String& firstName, const String& middleName, const String& lastName,
         const String& bday, const String& universityName, int yearOfStudy)
         : Person(firstName, middleName, lastName, bday),

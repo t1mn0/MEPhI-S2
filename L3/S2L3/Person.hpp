@@ -28,6 +28,8 @@ private:
     String bday;
 
 public:
+    Person() {}
+
     Person(const String& firstName, const String& middleName, const String& lastName, const String& bday) {
         if (isValidName(firstName)) {
             this->firstName = firstName;

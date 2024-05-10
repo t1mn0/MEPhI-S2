@@ -135,6 +135,7 @@
     <ClInclude Include="Person.hpp" />
     <ClInclude Include="Student.hpp" />
     <ClInclude Include="Teacher.hpp" />
+    <ClInclude Include="TestCompatibility.hpp" />
     <ClInclude Include="TestDataTypes.hpp" />
     <ClInclude Include="TestDeque.hpp" />
     <ClInclude Include="TestQueue.hpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Deque.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TestCompatibility.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Queue.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

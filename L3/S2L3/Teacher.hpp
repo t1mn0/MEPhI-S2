@@ -13,6 +13,9 @@ private:
     int yearOfWork;
 
 public:
+    Teacher()
+        : Person(String("a"), String("a"), String("a"), String("01-01-2001")), id(), universityName("a"), yearOfWork(0) {}
+
     Teacher(const String& firstName, const String& middleName, const String& lastName,
         const String& bday, const String& universityName, int yearOfWork)
         : Person(firstName, middleName, lastName, bday),

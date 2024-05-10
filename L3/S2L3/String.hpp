@@ -5,7 +5,7 @@ class String {
 private:
     MutableArraySequence<char> arrayseq;
 public:
-    String() {}
+    String() : arrayseq() {}
 
     String(const char* cstr) {
         while (*cstr != '\0') {

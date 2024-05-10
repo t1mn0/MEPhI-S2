@@ -3,6 +3,7 @@
 #include "TestStack.hpp"
 #include "TestDeque.hpp"
 #include "TestDataTypes.hpp"
+#include "TestCompatibility.hpp"
 #include "view.hpp"
 
 int main() {
@@ -10,5 +11,6 @@ int main() {
 	TestQueue();
 	TestDeque();
 	TestDataTypes();
-	run();
+	//TestCompatibility();
+	//run();
 }

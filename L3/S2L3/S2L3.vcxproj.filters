@@ -69,6 +69,9 @@
     <ClInclude Include="Teacher.hpp">
       <Filter>Исходные файлы\DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="TestCompatibility.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -100,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="_StringUtilite_.cpp">
       <Filter>Исходные файлы\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCompatibility.cpp">
+      <Filter>Исходные файлы\Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
