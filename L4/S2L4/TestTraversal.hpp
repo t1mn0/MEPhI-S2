@@ -1,1 +1,1 @@
-void TestTraversal();
+void TestTraversals();

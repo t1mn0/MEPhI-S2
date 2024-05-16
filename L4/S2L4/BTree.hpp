@@ -7,7 +7,8 @@
 #include "../../../../L3/S2L3/Queue.hpp"
 #include "../../../../L3/S2L3/Pair.hpp"
 
-
+#include <fstream>
+#include <iostream>
 
 template <typename T>
 struct BTreeNode {
@@ -36,6 +37,8 @@ private:
 	void _rLPR(BTreeNode<T>* node, MutableListSequence<T>* list);
 	void _rRLP(BTreeNode<T>* node, MutableListSequence<T>* list);
 	void _rRPL(BTreeNode<T>* node, MutableListSequence<T>* list);
+
+	void writeDotFile(BTreeNode<T>* node, std::ofstream& out, int depth = 0) const;
 
 public:
 	BTree(BTreeNode<T>* node) : root(node) {}
@@ -74,10 +77,16 @@ public:
 	void erase(const T& value);
 
 	void map(T(*modifier)(T));
-	T reduce(T accumulator, T(*reduceFunc)(const T&, const T&)) const;
+	template <typename U>
+	U reduce(U accumulator, U(*reduceFunc)(const U&, const T&)) const;
+
 
 	// Operators
 	bool operator==(const BTree<T>& other) const;
+
+
+	// DOT
+	void generateDotRepresentation(const std::string& filename) const;
 };
 
 

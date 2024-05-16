@@ -485,7 +485,8 @@ void BTree<T>::map(T(*modifier)(T)) {
 }
 
 template <typename T>
-T BTree<T>::reduce(T accumulator, T(*reduceFunc)(const T&, const T&)) const {
+template <typename U>
+U BTree<T>::reduce(U accumulator, U(*reduceFunc)(const U&, const T&)) const {
     if (root == nullptr) return accumulator;
 
     // DFS
@@ -507,11 +508,62 @@ T BTree<T>::reduce(T accumulator, T(*reduceFunc)(const T&, const T&)) const {
 }
 
 
-
 //Operators
 template <typename T>
 bool BTree<T>::operator==(const BTree<T>& other) const {
     if (this->root == nullptr && other.getRoot() == nullptr) return true;
     if (this->root == nullptr || other.getRoot() == nullptr) return false;
     return (this->root->value == other.getRoot()->value) && (this->root->left, other.getRoot()->left) && (this->root->right, other.getRoot()->right);
+}
+
+
+
+template <typename T>
+void BTree<T>::writeDotFile(BTreeNode<T>* node, std::ofstream& out, int depth) const {
+    if (!node) return;
+
+    std::string nodeColor = (depth % 2 == 0) ? "skyblue" : "yellow";
+
+    out << "    " << node->value << " [style=filled, fillcolor=" << nodeColor << "];";
+
+    if (node->left) {
+        out << "    " << node->value << " -> " << node->left->value << ";";
+        writeDotFile(node->left, out, depth + 1);
+    }
+    else {
+        out << "    " << node->value << " -> null" << node->value << "L [style=invis];";
+        out << "    null" << node->value << "L [shape=point, style=invis];";
+    }
+
+    if (node->right) {
+        out << "    " << node->value << " -> " << node->right->value << ";";
+        writeDotFile(node->right, out, depth + 1);
+    }
+    else {
+        out << "    " << node->value << " -> null" << node->value << "R [style=invis];";
+        out << "    null" << node->value << "R [shape=point, style=invis];";
+    }
+}
+
+template <typename T>
+void BTree<T>::generateDotRepresentation(const std::string& filename) const {
+    std::ofstream out(filename);
+    if (!out) {
+        std::cerr << "Failed to open the file for writing" << std::endl;
+        return;
+    }
+
+    out << "digraph BTree {";
+    out << "    node [fontsize=12];";
+    out << "    edge [color=black, fontsize=10];";
+
+    if (!root) {
+        out << "";
+    }
+    else {
+        writeDotFile(root, out);
+    }
+
+    out << "}";
+    out.close();
 }
