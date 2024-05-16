@@ -1,11 +1,10 @@
 #include <iostream>
 #include <locale>
-#include "BTree.hpp"
-
+#include "TestTraversal.hpp"
 
 
 int main() {
     setlocale(LC_ALL, "Russian");
-
+    TestTraversal();
     return 0;
 }

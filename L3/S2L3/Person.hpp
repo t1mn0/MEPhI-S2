@@ -59,7 +59,7 @@ public:
 
     ~Person() {}
 
-    PersonID getID() const { return id; }
+    int getID() const { return id.getID(); }
     String getFirstName() const { return firstName; }
     String getMiddleName() const { return middleName; }
     String getLastName() const { return lastName; }

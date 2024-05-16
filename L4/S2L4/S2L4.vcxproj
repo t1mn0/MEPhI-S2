@@ -132,6 +132,11 @@
     </ClCompile>
     <ClCompile Include="BTree.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestTraversal.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Complex.hpp" />
+    <ClInclude Include="TestTraversal.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

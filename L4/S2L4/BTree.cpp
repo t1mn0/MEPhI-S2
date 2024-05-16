@@ -196,11 +196,11 @@ MutableListSequence<T> BTree<T>::RPL() const {
 // Recursive realization                                                                                                                R
 
 template <typename T>
-void _rPLR(BTreeNode<T>* node, MutableListSequence<T>* list) {
+void BTree<T>::_rPLR(BTreeNode<T>* node, MutableListSequence<T>* list) {
     if (node == nullptr) return;
-    list->push_back(node->value); // Parent
-    _rPLR(node->left, list);       // Left
-    _rPLR(node->right, list);      // Right
+    list->push_back(node->value); 
+    _rPLR(node->left, list);       
+    _rPLR(node->right, list);      
 }
 
 template <typename T>
@@ -211,11 +211,11 @@ MutableListSequence<T> BTree<T>::rPLR() const {
 }
 
 template <typename T>
-void _rPRL(BTreeNode<T>* node, MutableListSequence<T>* list) {
+void BTree<T>::_rPRL(BTreeNode<T>* node, MutableListSequence<T>* list) {
     if (node == nullptr) return;
-    list->push_back(node->value); // Parent
-    _rPRL(node->right, list);      // Right
-    _rPRL(node->left, list);       // Left
+    list->push_back(node->value); 
+    _rPRL(node->right, list);      
+    _rPRL(node->left, list);       
 }
 
 template <typename T>
@@ -226,11 +226,11 @@ MutableListSequence<T> BTree<T>::rPRL() const {
 }
 
 template <typename T>
-void _rLRP(BTreeNode<T>* node, MutableListSequence<T>* list) {
+void BTree<T>::_rLRP(BTreeNode<T>* node, MutableListSequence<T>* list) {
     if (node == nullptr) return;
-    _rLRP(node->left, list);;     // Left
-    _rLRP(node->right, list);     // Right
-    list->push_back(node->value); // Parent
+    _rLRP(node->left, list);;     
+    _rLRP(node->right, list);     
+    list->push_back(node->value); 
 }
 
 template <typename T>
@@ -241,11 +241,11 @@ MutableListSequence<T> BTree<T>::rLRP() const {
 }
 
 template <typename T>
-void _rLPR(BTreeNode<T>* node, MutableListSequence<T>* list) {
+void BTree<T>::_rLPR(BTreeNode<T>* node, MutableListSequence<T>* list) {
     if (node == nullptr) return;
-    _rLPR(node->left, list);       // Left
-    list->push_back(node->value); // Parent
-    _rLPR(node->right, list);      // Right
+    _rLPR(node->left, list);       
+    list->push_back(node->value); 
+    _rLPR(node->right, list);
 }
 
 template <typename T>
@@ -256,11 +256,11 @@ MutableListSequence<T> BTree<T>::rLPR() const {
 }
 
 template <typename T>
-void _rRLP(BTreeNode<T>* node, MutableListSequence<T>* list) {
+void BTree<T>::_rRLP(BTreeNode<T>* node, MutableListSequence<T>* list) {
     if (node == nullptr) return;
-    _rRLP(node->right, list);      // Right
-    _rRLP(node->left, list);       // Left
-    list->push_back(node->value); // Parent
+    _rRLP(node->right, list);      
+    _rRLP(node->left, list);       
+    list->push_back(node->value); 
 }
 
 template <typename T>
@@ -271,11 +271,11 @@ MutableListSequence<T> BTree<T>::rRLP() const {
 }
 
 template <typename T>
-void _rRPL(BTreeNode<T>* node, MutableListSequence<T>* list) {
+void BTree<T>::_rRPL(BTreeNode<T>* node, MutableListSequence<T>* list) {
     if (node == nullptr) return;
-    _rRPL(node->right, list);      // Right
-    list->push_back(node->value); // Parent
-    _rRPL(node->left, list);       // Left
+    _rRPL(node->right, list);      
+    list->push_back(node->value); 
+    _rRPL(node->left, list);       
 }
 
 template <typename T>
@@ -330,8 +330,8 @@ template <typename T>
 BTree<T>* BTree<T>::search_subtree(BTree<T>* subtree) const {
     BTreeNode<T>* current = root;
     while (current != nullptr) {
-        if (current == subtree) {
-            return BTree(current);
+        if (current == subtree->getRoot()) {
+            return new BTree<T>(current);
         }
         current = (subtree->getRoot()->value < current->value) ? current->left : current->right;
     }
@@ -341,7 +341,10 @@ BTree<T>* BTree<T>::search_subtree(BTree<T>* subtree) const {
 template <typename T>
 BTree<T>* BTree<T>::get_subtree(const T& value) const {
     BTreeNode<T>* node = search_node(value);
-    return get_subtree(node);
+    if (node) {
+        return new BTree<T>(node);
+    }
+    return nullptr;
 }
 
 
@@ -374,6 +377,24 @@ void BTree<T>::insert(const T& value) {
             }
         }
     }
+}
+
+template <typename T>
+void BTree<T>::_rinsert(BTreeNode<T>*& node, const T& value) {
+    if (node == nullptr) {
+        node = new BTreeNode<T>(value);
+    }
+    else if (value < node->value) {
+        _rinsert(node->left, value);
+    }
+    else {
+        _rinsert(node->right, value);
+    }
+}
+
+template <typename T>
+void BTree<T>::rinsert(const T& value) {
+    _rinsert(root, value);
 }
 
 template <typename T>
@@ -438,7 +459,51 @@ void BTree<T>::erase(const T& value) {
         current = successor;
     }
 
-    //if (current != nullptr) delete current;
+    if (current != nullptr) delete current;
+}
+
+
+
+// Methods
+template <typename T>
+void BTree<T>::map(T(*modifier)(T)) {
+    if (root == nullptr) return;
+
+    // BFS
+    Queue<BTreeNode<T>*> queue;
+    queue.push(root);
+
+    while (!queue.empty()) {
+        BTreeNode<T>* current = queue.front();
+        queue.pop();
+
+        current->value = modifier(current->value);
+
+        if (current->left != nullptr) queue.push(current->left);
+        if (current->right != nullptr) queue.push(current->right);
+    }
+}
+
+template <typename T>
+T BTree<T>::reduce(T accumulator, T(*reduceFunc)(const T&, const T&)) const {
+    if (root == nullptr) return accumulator;
+
+    // DFS
+    Stack<BTreeNode<T>*> stack;
+    stack.push(root);
+    T result = accumulator;
+
+    while (!stack.empty()) {
+        BTreeNode<T>* node = stack.top();
+        stack.pop();
+
+        result = reduceFunc(result, node->value);
+
+        if (node->right != nullptr) stack.push(node->right);
+        if (node->left != nullptr) stack.push(node->left);
+    }
+
+    return result;
 }
 
 

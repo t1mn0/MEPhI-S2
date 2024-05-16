@@ -47,6 +47,14 @@ public:
         }
     }
 
+    int getYearsOfStudy() const {
+        return yearOfStudy;
+    }
+
+    String getNameOfUniversity() const {
+        return universityName;
+    }
+
     void printInfo() const override {
         std::cout << "\n |----------------------------------\n";
         std::cout << " | ID: " << id.getID() << '\n';

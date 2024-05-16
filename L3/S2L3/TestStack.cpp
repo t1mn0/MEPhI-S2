@@ -3,6 +3,11 @@
 #include <iostream>
 #include <string>
 
+
+int reduceFunc(const int& a, const int& b) {
+	return a + b;
+}
+
 void TestStack() {
 	ArraySequence<int>* arseq = new MutableArraySequence<int>(5, 0);
 	Stack<int>* stack_1 = new Stack<int>();
@@ -120,9 +125,7 @@ void TestStack() {
 		stack_3.push(-i);
 	}
 
-	int sum = stack_3.reduce(120, [](const int& a, const int& b) -> int {
-		return a + b;
-		});
+	int sum = stack_3.reduce(120, reduceFunc);
 
 	assert(sum == 0);
 }

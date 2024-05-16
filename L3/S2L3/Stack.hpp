@@ -24,7 +24,8 @@ public:
 
 	Stack<T> map(T (*modifier)(const T&));
 	Stack<T> where(bool (*predicate)(const T&)) const;
-	T reduce(T accumulator, T (*reduceFunc)(const T&, const T&)) const;
+	template <typename U>
+	U reduce(U accumulator, U (*reduceFunc)(const U&, const T&)) const;
 	void concat(Stack<T> other);
 	Stack<T> get_substack(int startIndex, int endIndex);
 	bool contains_substack(const Stack<T>& substack);

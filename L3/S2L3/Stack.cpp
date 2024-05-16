@@ -79,8 +79,9 @@ Stack<T> Stack<T>::where(bool (*predicate)(const T&)) const {
 }
 
 template <typename T>
-T Stack<T>::reduce(T accumulator, T(*reduceFunc)(const T&, const T&)) const {
-    T value = accumulator;
+template <typename U>
+U Stack<T>::reduce(U accumulator, U (*reduceFunc)(const U&, const T&)) const {
+    U value = accumulator;
     for (int i = 0; i < array.get_size(); ++i) {
         value = reduceFunc(value, array[i]);
     }

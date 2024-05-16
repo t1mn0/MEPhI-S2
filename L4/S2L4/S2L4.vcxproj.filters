@@ -13,16 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\BTree">
+      <UniqueIdentifier>{4e1394a2-bd22-4feb-b54f-13e63c8f3882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DataTypes">
+      <UniqueIdentifier>{ecae714c-6bc9-4af6-bad6-31debe18c6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Test">
+      <UniqueIdentifier>{79165d08-1bed-4706-8c03-4d1724c5c423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\UI">
+      <UniqueIdentifier>{2a039db9-28b4-4eb3-b7f8-874df1319559}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BTree.hpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="BTree.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\BTree</Filter>
     </ClCompile>
+    <ClCompile Include="BTree.hpp">
+      <Filter>Исходные файлы\BTree</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTraversal.cpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Complex.hpp">
+      <Filter>Исходные файлы\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTraversal.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
