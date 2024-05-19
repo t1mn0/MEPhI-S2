@@ -6,6 +6,6 @@ void TestConstructorsAndDestructors_AS();
 void TestIterators_AS();
 
 void TestBaseOperations_AS();
-void TestBorder—ases_BOAS();
+void TestBorderCases_BOAS();
 
 void TestMethods_AS();

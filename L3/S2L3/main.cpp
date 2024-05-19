@@ -12,5 +12,5 @@ int main() {
 	TestDeque();
 	TestDataTypes();
 	TestCompatibility();
-	//run();
+	run();
 }

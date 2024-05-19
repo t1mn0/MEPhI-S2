@@ -129,13 +129,18 @@
   <ItemGroup>
     <ClCompile Include="BTree.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="BTree.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestBoundaryCases.cpp" />
+    <ClCompile Include="TestMethods.cpp" />
     <ClCompile Include="TestTraversal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Complex.hpp" />
+    <ClInclude Include="TestBoundaryCases.hpp" />
+    <ClInclude Include="TestMethods.hpp" />
     <ClInclude Include="TestTraversal.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

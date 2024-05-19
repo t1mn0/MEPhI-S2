@@ -39,12 +39,24 @@
     <ClCompile Include="TestTraversal.cpp">
       <Filter>Исходные файлы\Test</Filter>
     </ClCompile>
+    <ClCompile Include="TestMethods.cpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBoundaryCases.cpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Complex.hpp">
       <Filter>Исходные файлы\DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="TestTraversal.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestMethods.hpp">
+      <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestBoundaryCases.hpp">
       <Filter>Исходные файлы\Test</Filter>
     </ClInclude>
   </ItemGroup>

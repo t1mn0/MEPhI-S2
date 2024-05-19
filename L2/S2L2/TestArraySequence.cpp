@@ -235,7 +235,7 @@ void TestBaseOperations_AS() {
 	assert(!imas->empty());
 }
 
-void TestBorder—ases_BOAS() {
+void TestBorderCases_BOAS() {
 	ArraySequence<int>* as = new MutableArraySequence<int>();
 
 	// Test empty list
@@ -455,6 +455,6 @@ void TestArraySequence() {
 	TestConstructorsAndDestructors_AS();
 	TestIterators_AS();
 	TestBaseOperations_AS();
-	TestBorder—ases_BOAS();
+	TestBorderCases_BOAS();
 	TestMethods_AS();
 }

@@ -1,7 +1,32 @@
-#include "BTree.hpp"
+﻿#include "BTree.hpp"
+#include <iostream>
 
-// Balance tree with building                                                                                                           R
 
+
+//Operator '==' for BTreeNode
+template <typename T>
+bool BTreeNode<T>::operator==(const BTreeNode<T>& other) const {
+    if (this == nullptr || &other == nullptr) return this == &other;
+    return (value == other.value) &&
+        ((left == nullptr && other.left == nullptr) || (left != nullptr && *left == *other.left)) &&
+        ((right == nullptr && other.right == nullptr) || (right != nullptr && *right == *other.right));
+}
+
+
+
+// For destructor:
+template <typename T>
+void BTree<T>::destroyTree(BTreeNode<T>* node) {
+    if (node != nullptr) {
+        destroyTree(node->left);
+        destroyTree(node->right);
+        delete node;
+    }
+}
+
+
+
+// Balance tree                                                                                                          R
 template <typename T>
 BTreeNode<T>* BTree<T>::buildBalancedTree(MutableListSequence<T>& list, int start, int end) {
     if (start > end) return nullptr;
@@ -15,12 +40,15 @@ BTreeNode<T>* BTree<T>::buildBalancedTree(MutableListSequence<T>& list, int star
 template <typename T>
 void BTree<T>::balance() {
     MutableListSequence<T> list = this->LPR();
+    if (list.get_size() == 0) {
+        throw Exception(ErrorCode::empty_container_error);
+    }
     root = buildBalancedTree(list, 0, list.get_size() - 1);
 }
 
 
 
-// Iterative realization                                                                                                                I
+// Iterative realization traversal                                                                                                             I
 
 template <typename T>
 MutableListSequence<T> BTree<T>::PLR() const {
@@ -192,8 +220,26 @@ MutableListSequence<T> BTree<T>::RPL() const {
 }
 
 
+template <typename T>
+MutableArraySequence<T> BTree<T>::LevelOrderTraversal() const {
+    MutableArraySequence<T> result;
+    if (!root) return result;
 
-// Recursive realization                                                                                                                R
+    Queue<BTreeNode<T>*> queue;
+    queue.push(root);
+    while (!queue.empty()) {
+        BTreeNode<T>* node = queue.front();
+        queue.pop();
+        result.push_back(node->value);
+        if (node->left) queue.push(node->left);
+        if (node->right) queue.push(node->right);
+    }
+    return result;
+}
+
+
+
+// Recursive realization traversal                                                                                                                R
 
 template <typename T>
 void BTree<T>::_rPLR(BTreeNode<T>* node, MutableListSequence<T>* list) {
@@ -204,7 +250,7 @@ void BTree<T>::_rPLR(BTreeNode<T>* node, MutableListSequence<T>* list) {
 }
 
 template <typename T>
-MutableListSequence<T> BTree<T>::rPLR() const {
+MutableListSequence<T> BTree<T>::rPLR() {
     MutableListSequence<T>* list = new MutableListSequence<T>();
     _rPLR(root, list);
     return *list;
@@ -219,7 +265,7 @@ void BTree<T>::_rPRL(BTreeNode<T>* node, MutableListSequence<T>* list) {
 }
 
 template <typename T>
-MutableListSequence<T> BTree<T>::rPRL() const {
+MutableListSequence<T> BTree<T>::rPRL() {
     MutableListSequence<T>* list = new MutableListSequence<T>();
     _rPRL(root, list);
     return *list;
@@ -234,7 +280,7 @@ void BTree<T>::_rLRP(BTreeNode<T>* node, MutableListSequence<T>* list) {
 }
 
 template <typename T>
-MutableListSequence<T> BTree<T>::rLRP() const {
+MutableListSequence<T> BTree<T>::rLRP() {
     MutableListSequence<T>* list = new MutableListSequence<T>();
     _rLRP(root, list);
     return *list;
@@ -249,7 +295,7 @@ void BTree<T>::_rLPR(BTreeNode<T>* node, MutableListSequence<T>* list) {
 }
 
 template <typename T>
-MutableListSequence<T> BTree<T>::rLPR() const {
+MutableListSequence<T> BTree<T>::rLPR() {
     MutableListSequence<T>* list = new MutableListSequence<T>();
     _rLPR(root, list);
     return *list;
@@ -264,7 +310,7 @@ void BTree<T>::_rRLP(BTreeNode<T>* node, MutableListSequence<T>* list) {
 }
 
 template <typename T>
-MutableListSequence<T> BTree<T>::rRLP() const {
+MutableListSequence<T> BTree<T>::rRLP() {
     MutableListSequence<T>* list = new MutableListSequence<T>();
     _rRLP(root, list);
     return *list;
@@ -279,7 +325,7 @@ void BTree<T>::_rRPL(BTreeNode<T>* node, MutableListSequence<T>* list) {
 }
 
 template <typename T>
-MutableListSequence<T> BTree<T>::rRPL() const {
+MutableListSequence<T> BTree<T>::rRPL() {
     MutableListSequence<T>* list = new MutableListSequence<T>();
     _rRPL(root, list);
     return *list;
@@ -325,9 +371,12 @@ BTreeNode<T>* BTree<T>::search_node(const T& value) const {
 
 
 
-// Search & get subtree                                                                                                                 I
+// Subtree                                                                                                                 I
 template <typename T>
 BTree<T>* BTree<T>::search_subtree(BTree<T>* subtree) const {
+    if (subtree == nullptr || subtree->getRoot() == nullptr) {
+        throw Exception(ErrorCode::invalid_argument);
+    }
     BTreeNode<T>* current = root;
     while (current != nullptr) {
         if (current == subtree->getRoot()) {
@@ -339,12 +388,44 @@ BTree<T>* BTree<T>::search_subtree(BTree<T>* subtree) const {
 }
 
 template <typename T>
-BTree<T>* BTree<T>::get_subtree(const T& value) const {
-    BTreeNode<T>* node = search_node(value);
-    if (node) {
-        return new BTree<T>(node);
+bool BTree<T>::is_subtree(BTreeNode<T>* root, BTreeNode<T>* subroot) const {
+    if (subroot == nullptr) {
+        return true;
     }
-    return nullptr;
+    if (root == nullptr) {
+        return false;
+    }
+    if (*root == *subroot) {
+        return true;
+    }
+    return is_subtree(root->left, subroot) || is_subtree(root->right, subroot);
+}
+
+
+
+// Clone (copy) tree
+template <typename T>
+BTreeNode<T>* BTree<T>::copy_tree(BTreeNode<T>* node) const{
+    if (node == nullptr) {
+        return nullptr;
+    }
+    BTreeNode<T>* newNode = new BTreeNode<T>(node->value);
+    newNode->left = copy_tree(node->left);
+    newNode->right = copy_tree(node->right);
+    return newNode;
+}
+
+template <typename T>
+BTree<T>* BTree<T>::clone_tree(BTreeNode<T>* subtreeRoot) const {
+    if (subtreeRoot == nullptr) {
+        return new BTree<T>(nullptr);
+    }
+
+    BTreeNode<T>* newRoot = new BTreeNode<T>(subtreeRoot->value);
+    newRoot->left = copy_tree(subtreeRoot->left);
+    newRoot->right = copy_tree(subtreeRoot->right);
+
+    return new BTree<T>(newRoot);
 }
 
 
@@ -399,72 +480,52 @@ void BTree<T>::rinsert(const T& value) {
 
 template <typename T>
 void BTree<T>::erase(const T& value) {
-    BTreeNode<T>* current = root;
-    BTreeNode<T>* parent = nullptr;
-    bool isLeftChild = false;
+    if (root == nullptr) return;
 
-    while (current != nullptr && current->value != value) {
-        parent = current;
-        if (value < current->value) {
-            current = current->left;
-            isLeftChild = true;
-        }
-        else {
-            current = current->right;
-            isLeftChild = false;
-        }
+    root = rerase(root, value);
+}
+
+template <typename T>
+BTreeNode<T>* BTree<T>::rerase(BTreeNode<T>* currentNode, const T& value) {
+    if (currentNode == nullptr) return currentNode; // Не нашли узел, возвращаем текущий
+
+    if (value < currentNode->value) {
+        currentNode->left = rerase(currentNode->left, value);
     }
-
-    if (current == nullptr) return;
-
-    if (current->left == nullptr && current->right == nullptr) {
-        if (current != root) {
-            if (isLeftChild) parent->left = nullptr;
-            else parent->right = nullptr;
-        }
-        else {
-            root = nullptr;
-        }
-        delete current;
-    }
-    else if (current->left == nullptr || current->right == nullptr) {
-        BTreeNode<T>* child = current->left ? current->left : current->right;
-        if (current != root) {
-            if (isLeftChild) parent->left = child;
-            else parent->right = child;
-        }
-        else {
-            root = child;
-        }
-        delete current;
+    else if (value > currentNode->value) {
+        currentNode->right = rerase(currentNode->right, value);
     }
     else {
-        BTreeNode<T>* successor = current->right;
-        BTreeNode<T>* successorParent = current;
-
-        while (successor->left != nullptr) {
-            successorParent = successor;
-            successor = successor->left;
+        if (currentNode->left == nullptr) {
+            BTreeNode<T>* temp = currentNode->right;
+            delete currentNode;
+            return temp;
+        }
+        else if (currentNode->right == nullptr) {
+            BTreeNode<T>* temp = currentNode->left;
+            delete currentNode;
+            return temp;
         }
 
-        if (successorParent != current) {
-            successorParent->left = successor->right;
-        }
-        else {
-            successorParent->right = successor->right;
-        }
-
-        current->value = successor->value;
-
-        current = successor;
+        BTreeNode<T>* minNode = min_value(currentNode->right);
+        currentNode->value = minNode->value;
+        currentNode->right = rerase(currentNode->right, minNode->value);
     }
+    return currentNode;
+}
 
-    if (current != nullptr) delete current;
+template <typename T>
+BTreeNode<T>* BTree<T>::min_value(BTreeNode<T>* node) {
+    BTreeNode<T>* current = node;
+    while (current && current->left != nullptr) {
+        current = current->left;
+    }
+    return current;
 }
 
 
 
-// Methods
+// Map & reduce
 template <typename T>
 void BTree<T>::map(T(*modifier)(T)) {
     if (root == nullptr) return;
@@ -486,7 +547,7 @@ void BTree<T>::map(T(*modifier)(T)) {
 
 template <typename T>
 template <typename U>
-U BTree<T>::reduce(U accumulator, U(*reduceFunc)(const U&, const T&)) const {
+U BTree<T>::reduce(const U accumulator, U(*reduceFunc)(const U&, const T&)) const {
     if (root == nullptr) return accumulator;
 
     // DFS
@@ -508,21 +569,124 @@ U BTree<T>::reduce(U accumulator, U(*reduceFunc)(const U&, const T&)) const {
 }
 
 
-//Operators
+
+//Output in terminal
 template <typename T>
-bool BTree<T>::operator==(const BTree<T>& other) const {
-    if (this->root == nullptr && other.getRoot() == nullptr) return true;
-    if (this->root == nullptr || other.getRoot() == nullptr) return false;
-    return (this->root->value == other.getRoot()->value) && (this->root->left, other.getRoot()->left) && (this->root->right, other.getRoot()->right);
+void BTree<T>::show(BTreeNode<T>* node, int space, char edge, bool isLeft) {
+    if (node == nullptr) return;
+
+    const int baseSpace = 5;
+    space += baseSpace;
+
+    show(node->right, space, '/', false);
+
+    for (int i = baseSpace; i < space; i++) {
+        std::cout << " ";
+    }
+
+    if (edge != ' ') {
+        if (isLeft) {
+            std::cout << edge << "___";
+        }
+        else {
+            std::cout << edge << "---";
+        }
+    }
+    std::cout << node->value << std::endl;
+
+    show(node->left, space, '\\', true);
 }
 
 
 
+// Build by Traversals
+template <typename T>
+bool isTruePreorderTraversal(MutableListSequence<T> preorder) { // function to check if the given preorder traversal is valid
+    Stack<T> s;
+    int n = preorder.get_size();
+
+    int root = INT_MIN;
+
+    for (int i = 0; i < n; i++) {
+        if (preorder[i] < root) {
+            return false;
+        }
+
+        while (!s.empty() && s.top() < preorder[i]) {
+            root = s.top();
+            s.pop();
+        }
+
+        s.push(preorder[i]);
+    }
+    return true;
+}
+
+template <typename T>
+BTreeNode<T>* BTree<T>::_buildByTraversals(
+    const MutableListSequence<T>& preorder, int pre_start, int pre_end,
+    const MutableListSequence<T>& inorder, int in_start, int in_end) {
+
+    if (pre_start > pre_end || in_start > in_end) {
+        return nullptr;
+    }
+
+    for (int i = 1; i < inorder.get_size(); ++i) {
+        if (inorder.get(i - 1) > inorder.get(i)) {
+            return nullptr;
+        }
+    }
+
+    if (!isTruePreorderTraversal(preorder)) {
+        return nullptr;
+    }
+
+    T root_val = preorder[pre_start];
+    BTreeNode<T>* root = new BTreeNode<T>(root_val);
+
+    int inRootPos = in_start;
+    for (; inRootPos <= in_end; ++inRootPos) {
+        if (inorder.get(inRootPos) == root_val) {
+            break;
+        }
+    }
+
+    int leftSubtreeSize = inRootPos - in_start;
+
+    root->left = _buildByTraversals(
+        preorder, pre_start + 1, pre_start + leftSubtreeSize,
+        inorder, in_start, inRootPos - 1);
+
+    root->right = _buildByTraversals(
+        preorder, pre_start + leftSubtreeSize + 1, pre_end,
+        inorder, inRootPos + 1, in_end);
+
+    return root;
+}
+
+template <typename T>
+BTree<T>* BTree<T>::buildByTraversals(
+    const MutableListSequence<T>& preorder, 
+    const MutableListSequence<T>& inorder) {
+    if (preorder.get_size() != inorder.get_size() || preorder.get_size() == 0) {
+        return nullptr; 
+    }
+
+    BTreeNode<T>* root = _buildByTraversals(
+        preorder, 0, preorder.get_size() - 1, inorder, 0, inorder.get_size() - 1);
+
+    return new BTree<T>(root);
+}
+
+
+
+
+// Generate dot file for graph
 template <typename T>
 void BTree<T>::writeDotFile(BTreeNode<T>* node, std::ofstream& out, int depth) const {
     if (!node) return;
 
-    std::string nodeColor = (depth % 2 == 0) ? "skyblue" : "yellow";
+    std::string nodeColor = (depth % 2 == 0) ? "skyblue" : "pink";
 
     out << "    " << node->value << " [style=filled, fillcolor=" << nodeColor << "];";
 
