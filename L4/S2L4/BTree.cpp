@@ -1,7 +1,8 @@
 ﻿#include "BTree.hpp"
 #include <iostream>
 
-
+#define RESET	"\033[0m"
+#define BLUE	"\033[1;34m"
 
 //Operator '==' for BTreeNode
 template <typename T>
@@ -592,7 +593,8 @@ void BTree<T>::show(BTreeNode<T>* node, int space, char edge, bool isLeft) {
             std::cout << edge << "---";
         }
     }
-    std::cout << node->value << std::endl;
+
+    std::cout << BLUE << node->value << RESET << std::endl;
 
     show(node->left, space, '\\', true);
 }

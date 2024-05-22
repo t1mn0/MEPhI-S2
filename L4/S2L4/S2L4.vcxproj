@@ -136,12 +136,14 @@
     <ClCompile Include="TestBoundaryCases.cpp" />
     <ClCompile Include="TestMethods.cpp" />
     <ClCompile Include="TestTraversal.cpp" />
+    <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Complex.hpp" />
     <ClInclude Include="TestBoundaryCases.hpp" />
     <ClInclude Include="TestMethods.hpp" />
     <ClInclude Include="TestTraversal.hpp" />
+    <ClInclude Include="view.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

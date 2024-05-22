@@ -45,6 +45,9 @@
     <ClCompile Include="TestBoundaryCases.cpp">
       <Filter>Исходные файлы\Test</Filter>
     </ClCompile>
+    <ClCompile Include="view.cpp">
+      <Filter>Исходные файлы\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Complex.hpp">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="TestBoundaryCases.hpp">
       <Filter>Исходные файлы\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="view.hpp">
+      <Filter>Исходные файлы\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

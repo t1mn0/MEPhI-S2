@@ -4,6 +4,7 @@
 #include "TestTraversal.hpp"
 #include "TestMethods.hpp"
 #include "TestBoundaryCases.hpp"
+#include "view.hpp"
 
 #include <iostream>
 
@@ -13,6 +14,7 @@ int main() {
     TestTraversals();
     TestMethods();
     TestBoundaryCases();
+    run();
 
     return 0;
 }
