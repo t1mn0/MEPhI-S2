@@ -79,8 +79,10 @@ void TestBoundaryCases() {
 		assert(tree1.search_node(i) == nullptr);
 	}
 
-	MutableListSequence<int> preorder = tree1.PRL();
-	MutableListSequence<int> inorder = tree0.LRP();
+	BTree<int> tree2;
+	for (int i = 15; i <= 25; ++i) {
+		tree2.insert(i);
+	}
 
-	// (!) buildByTraversals 
+	tree2.balance();
 }

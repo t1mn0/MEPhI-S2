@@ -430,7 +430,6 @@ BTree<T>* BTree<T>::clone_tree(BTreeNode<T>* subtreeRoot) const {
 }
 
 
-
 // Insert & erase                                                                                                                       I
 template <typename T>
 void BTree<T>::insert(const T& value) {
@@ -568,118 +567,6 @@ U BTree<T>::reduce(const U accumulator, U(*reduceFunc)(const U&, const T&)) cons
 
     return result;
 }
-
-
-
-//Output in terminal
-template <typename T>
-void BTree<T>::show(BTreeNode<T>* node, int space, char edge, bool isLeft) {
-    if (node == nullptr) return;
-
-    const int baseSpace = 5;
-    space += baseSpace;
-
-    show(node->right, space, '/', false);
-
-    for (int i = baseSpace; i < space; i++) {
-        std::cout << " ";
-    }
-
-    if (edge != ' ') {
-        if (isLeft) {
-            std::cout << edge << "___";
-        }
-        else {
-            std::cout << edge << "---";
-        }
-    }
-
-    std::cout << BLUE << node->value << RESET << std::endl;
-
-    show(node->left, space, '\\', true);
-}
-
-
-
-// Build by Traversals
-template <typename T>
-bool isTruePreorderTraversal(MutableListSequence<T> preorder) { // function to check if the given preorder traversal is valid
-    Stack<T> s;
-    int n = preorder.get_size();
-
-    int root = INT_MIN;
-
-    for (int i = 0; i < n; i++) {
-        if (preorder[i] < root) {
-            return false;
-        }
-
-        while (!s.empty() && s.top() < preorder[i]) {
-            root = s.top();
-            s.pop();
-        }
-
-        s.push(preorder[i]);
-    }
-    return true;
-}
-
-template <typename T>
-BTreeNode<T>* BTree<T>::_buildByTraversals(
-    const MutableListSequence<T>& preorder, int pre_start, int pre_end,
-    const MutableListSequence<T>& inorder, int in_start, int in_end) {
-
-    if (pre_start > pre_end || in_start > in_end) {
-        return nullptr;
-    }
-
-    for (int i = 1; i < inorder.get_size(); ++i) {
-        if (inorder.get(i - 1) > inorder.get(i)) {
-            return nullptr;
-        }
-    }
-
-    if (!isTruePreorderTraversal(preorder)) {
-        return nullptr;
-    }
-
-    T root_val = preorder[pre_start];
-    BTreeNode<T>* root = new BTreeNode<T>(root_val);
-
-    int inRootPos = in_start;
-    for (; inRootPos <= in_end; ++inRootPos) {
-        if (inorder.get(inRootPos) == root_val) {
-            break;
-        }
-    }
-
-    int leftSubtreeSize = inRootPos - in_start;
-
-    root->left = _buildByTraversals(
-        preorder, pre_start + 1, pre_start + leftSubtreeSize,
-        inorder, in_start, inRootPos - 1);
-
-    root->right = _buildByTraversals(
-        preorder, pre_start + leftSubtreeSize + 1, pre_end,
-        inorder, inRootPos + 1, in_end);
-
-    return root;
-}
-
-template <typename T>
-BTree<T>* BTree<T>::buildByTraversals(
-    const MutableListSequence<T>& preorder, 
-    const MutableListSequence<T>& inorder) {
-    if (preorder.get_size() != inorder.get_size() || preorder.get_size() == 0) {
-        return nullptr; 
-    }
-
-    BTreeNode<T>* root = _buildByTraversals(
-        preorder, 0, preorder.get_size() - 1, inorder, 0, inorder.get_size() - 1);
-
-    return new BTree<T>(root);
-}
-
 
 
 

@@ -1,12 +1,14 @@
 #pragma once
 
-#include "../../../../L2/S2L2/MutableListSequence.hpp"
-#include "../../../../L2/S2L2/MutableArraySequence.hpp"
-#include "../../../../L2/S2L2/ListSequence.hpp"
-#include "../../../../L2/S2L2/Sequence.hpp"
-#include "../../../../L3/S2L3/Stack.hpp"
-#include "../../../../L3/S2L3/Queue.hpp"
-#include "../../../../L3/S2L3/Pair.hpp"
+#include "../../L2/S2L2/MutableListSequence.hpp"
+#include "../../L2/S2L2/MutableArraySequence.hpp"
+#include "../../L2/S2L2/ListSequence.hpp"
+#include "../../L2/S2L2/Sequence.hpp"
+#include "../../L3/S2L3/Stack.hpp"
+#include "../../L3/S2L3/Queue.hpp"
+#include "../../L3/S2L3/Pair.hpp"
+
+#include <unordered_map>
 
 #include <fstream>
 
@@ -26,9 +28,6 @@ template <typename T>
 class BTree {
 private:
 	BTreeNode<T>* root;
-
-	// SUPPORT METHOD for build tree by traversals
-	BTreeNode<T>* _buildByTraversals(const MutableListSequence<T>& preorder, int pre_start, int pre_end, const MutableListSequence<T>& inorder, int in_start, int in_end);
 	
 	// SUPPORT METHOD for build balance tree
 	BTreeNode<T>* buildBalancedTree(MutableListSequence<T>& list, int start, int end);
@@ -97,12 +96,6 @@ public:
 
 	template <typename U>
 	U reduce(U accumulator, U(*reduceFunc)(const U&, const T&)) const;
-
-	//Output in terminal
-	void show(BTreeNode<T>* node, int space = 1, char edge = ' ', bool isLeft = false); 
-
-	// Build by traversals
-	BTree<T>* buildByTraversals(const MutableListSequence<T>& preorder, const MutableListSequence<T>& inorder);
 
 	// DOT file for GraphViz
 	void generateDotRepresentation(const std::string& filename) const;

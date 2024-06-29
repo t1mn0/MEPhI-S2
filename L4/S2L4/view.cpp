@@ -14,6 +14,37 @@
 #include <vector>
 
 // -----------------------------------------------------------------------------------------------------------------
+//Output in terminal
+template <typename T>
+void show(BTreeNode<T>* node, int space = 1, char edge = ' ', bool isLeft = false) {
+	if (node == nullptr) return;
+
+	const int baseSpace = 5;
+	space += baseSpace;
+
+	show(node->right, space, '/', false);
+
+	for (int i = baseSpace; i < space; i++) {
+		std::cout << " ";
+	}
+
+	if (edge != ' ') {
+		if (isLeft) {
+			std::cout << edge << "___";
+		}
+		else {
+			std::cout << edge << "---";
+		}
+	}
+
+	std::cout << BLUE << node->value << RESET << std::endl;
+
+	show(node->left, space, '\\', true);
+}
+
+
+
+// -----------------------------------------------------------------------------------------------------------------
 // Memory
 
 unsigned long id = 1;
@@ -367,8 +398,8 @@ int print_tree() {
 	}
 
 	if (index < memory.size()) {
-		std::cout << BLUE << "B-Tree content:\n" << RESET;
-		memory[index].show(memory[index].getRoot());
+		std::cout << BLUE << "B-Tree content:\n\n" << RESET;
+		show(memory[index].getRoot());
 	}
 
 	return 0;
@@ -523,7 +554,7 @@ int get_traversal() {
 		return -1;
 	}
 	
-	memory[index].show(memory[index].getRoot());
+	show(memory[index].getRoot());
 
 	std::cout << GREEN << "\n> 1) LRP (postorder)\n" << RESET;
 	std::cout << GREEN << "> 2) LPR (inorder)\n" << RESET;

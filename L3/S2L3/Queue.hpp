@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../../../L2/S2L2/Sequence.hpp"
-#include "../../../../L2/S2L2/MutableListSequence.hpp"
-#include "../../../../L2/S2L2/Exception.hpp"
+#include "../../L2/S2L2/Sequence.hpp"
+#include "../../L2/S2L2/MutableListSequence.hpp"
+#include "../../L2/S2L2/Exception.hpp"
 #include "Pair.hpp"
 
 template <typename T>
