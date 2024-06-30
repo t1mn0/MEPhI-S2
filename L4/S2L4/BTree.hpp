@@ -8,8 +8,6 @@
 #include "../../L3/S2L3/Queue.hpp"
 #include "../../L3/S2L3/Pair.hpp"
 
-#include <unordered_map>
-
 #include <fstream>
 
 template <typename T>
@@ -49,9 +47,6 @@ private:
 
 	void destroyTree(BTreeNode<T>* node); // SUPPORT METHOD for destructor
 	BTreeNode<T>* copy_tree(BTreeNode<T>* node) const; // SUPPORT METHOD for clone_tree
-
-	// DOT file for GraphViz
-	void writeDotFile(BTreeNode<T>* node, std::ofstream& out, int depth = 0) const;
 
 public:
 	BTree() : root(nullptr) {}
@@ -96,9 +91,6 @@ public:
 
 	template <typename U>
 	U reduce(U accumulator, U(*reduceFunc)(const U&, const T&)) const;
-
-	// DOT file for GraphViz
-	void generateDotRepresentation(const std::string& filename) const;
 };
 
 

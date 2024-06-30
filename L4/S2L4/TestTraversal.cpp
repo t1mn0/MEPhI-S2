@@ -124,9 +124,4 @@ void TestTraversals() {
     assert(rpl[7] == 3);
     assert(rpl[8] == 2);
     assert(rpl[9] == 1);
-
-    /*
-    tree.generateDotRepresentation("tree.dot");
-    std::system("dot -Tpng tree.dot -o tree.png");
-    */
 }

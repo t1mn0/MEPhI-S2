@@ -111,7 +111,4 @@ void TestMethods() {
     assert(tree.is_subtree(tree.getRoot(), newtree2->getRoot()) == true);
     assert(tree.is_subtree(tree.getRoot(), newtree3->getRoot()) == true);
     assert(tree.is_subtree(tree.getRoot(), newtree4.getRoot()) == false);
-    
-    //tree.generateDotRepresentation("tree.dot");
-    //std::system("dot -Tpng tree.dot -o tree.png");
 }

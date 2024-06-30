@@ -64,7 +64,6 @@ int get_traversal();
 int max_depth();
 int insert();
 int erase();
-int generate_dot();
 
 // -----------------------------------------------------------------------------------------------------------------
 // Base
@@ -84,7 +83,6 @@ void menu() {
 	std::cout << GREEN << "> 7) max depth\n" << RESET;	
 	std::cout << GREEN << "> 8) insert\n" << RESET;	
 	std::cout << GREEN << "> 9) erase\n" << RESET;	
-	std::cout << GREEN << "> 10) generate dot\n" << RESET;
 
 	std::cout << LINE;
 	std::cout << RED << "Warning" << RESET << ": the program will finished automatically after 10 consecutive unsuccessful input attempts\n";
@@ -199,18 +197,6 @@ void run() {
 		else if (command == "9") { // erase
 			system("cls");
 			state = erase();
-			std::cout << ">>> ";
-			std::cin >> command;
-			system("cls");
-			if (state) {
-				std::cout << YELLOW << "The operation was aborted\n" << RESET;
-			}
-			menu();
-			bad_count = 10;
-		}
-		else if (command == "10") { // generate DOT
-			system("cls");
-			state = generate_dot();
 			std::cout << ">>> ";
 			std::cin >> command;
 			system("cls");
@@ -523,25 +509,6 @@ int erase() {
 
 	if (!bad_count) {
 		return -1;
-	}
-
-	return 0;
-}
-
-int generate_dot() {
-	int index = select();
-
-	if (index < 0) {
-		return -1;
-	}
-
-	if (index < memory.size()) {
-		std::cout << BLUE << "DOT and PNG files will be created in the project directory and named: " << RESET << GREEN << "tree" << id << RESET << '\n';
-		std::string s_id = "tree" + std::to_string(id);
-		memory[index].generateDotRepresentation(s_id);
-		std::string command = "dot -Tpng " + s_id + " -o " + s_id + ".png";
-		std::system(command.c_str());
-		id++;
 	}
 
 	return 0;
