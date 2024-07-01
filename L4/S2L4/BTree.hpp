@@ -6,9 +6,6 @@
 #include "../../L2/S2L2/Sequence.hpp"
 #include "../../L3/S2L3/Stack.hpp"
 #include "../../L3/S2L3/Queue.hpp"
-#include "../../L3/S2L3/Pair.hpp"
-
-#include <fstream>
 
 template <typename T>
 struct BTreeNode {
@@ -55,7 +52,7 @@ public:
 	~BTree() { destroyTree(root); }
 
 	// Balance tree
-	void balance();
+	BTree<T>* balance();
 
 	// Iterative realization
 	MutableListSequence<T> PLR() const; // Parent - Left   - Right
@@ -86,8 +83,6 @@ public:
 	void insert(const T& value); // Iterative realization 
 	void rinsert(const T& value); // Recursive realization
 	void erase(const T& value); // Recursive realization
-
-	void map(T(*modifier)(T)); 
 
 	template <typename U>
 	U reduce(U accumulator, U(*reduceFunc)(const U&, const T&)) const;

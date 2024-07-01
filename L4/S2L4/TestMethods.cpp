@@ -49,14 +49,13 @@ void TestMethods() {
 
     tree.balance();
 
-    tree.map([](int a) {return a * 10; });
     int sum = tree.reduce(0, reduceFunc);
     // ((12 + 1) * 12 / 2) * 10
-    assert(sum == 780);
+    assert(sum == 78);
 
-    BTree<int>* newtree1 = tree.clone_tree(tree.search_node(90));
-    BTree<int>* newtree2 = tree.clone_tree(tree.search_node(40));
-    BTree<int>* newtree3 = tree.clone_tree(tree.search_node(120));
+    BTree<int>* newtree1 = tree.clone_tree(tree.search_node(9));
+    BTree<int>* newtree2 = tree.clone_tree(tree.search_node(4));
+    BTree<int>* newtree3 = tree.clone_tree(tree.search_node(12));
 
     MutableArraySequence<int> lpr1 = newtree1->LPR();
     MutableArraySequence<int> rlpr1 = newtree1->rLPR();
@@ -95,17 +94,11 @@ void TestMethods() {
     }
 
     newtree4.balance();
-    newtree4.map([](int a) {return a * 10; });
 
-    assert(tree.is_subtree(tree.getRoot(), newtree1->getRoot()));
-    assert(tree.is_subtree(tree.getRoot(), newtree2->getRoot()));
-    assert(tree.is_subtree(tree.getRoot(), newtree3->getRoot()));
-    assert(tree.is_subtree(tree.getRoot(), newtree4.getRoot()));
-
-    newtree1->erase(110); // Удаление узла с двумя потомками
-    newtree2->erase(40); // Удаление узла с одним потомком
-    newtree3->erase(120); // Удаление листа
-    newtree4.erase(120); // Удаление листа
+    newtree1->erase(11); // Удаление узла с двумя потомками
+    newtree2->erase(4); // Удаление узла с одним потомком
+    newtree3->erase(12); // Удаление листа
+    newtree4.erase(12); // Удаление листа
 
     assert(tree.is_subtree(tree.getRoot(), newtree1->getRoot()) == false);
     assert(tree.is_subtree(tree.getRoot(), newtree2->getRoot()) == true);

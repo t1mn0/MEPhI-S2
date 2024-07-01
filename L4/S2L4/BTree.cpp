@@ -1,5 +1,4 @@
 ﻿#include "BTree.hpp"
-#include <iostream>
 
 #define RESET	"\033[0m"
 #define BLUE	"\033[1;34m"
@@ -39,12 +38,13 @@ BTreeNode<T>* BTree<T>::buildBalancedTree(MutableListSequence<T>& list, int star
 }
 
 template <typename T>
-void BTree<T>::balance() {
+BTree<T>* BTree<T>::balance() {
     MutableListSequence<T> list = this->LPR();
     if (list.get_size() == 0) {
         throw Exception(ErrorCode::empty_container_error);
     }
     root = buildBalancedTree(list, 0, list.get_size() - 1);
+    return this;
 }
 
 
@@ -525,25 +525,7 @@ BTreeNode<T>* BTree<T>::min_value(BTreeNode<T>* node) {
 
 
 
-// Map & reduce
-template <typename T>
-void BTree<T>::map(T(*modifier)(T)) {
-    if (root == nullptr) return;
-
-    // BFS
-    Queue<BTreeNode<T>*> queue;
-    queue.push(root);
-
-    while (!queue.empty()) {
-        BTreeNode<T>* current = queue.front();
-        queue.pop();
-
-        current->value = modifier(current->value);
-
-        if (current->left != nullptr) queue.push(current->left);
-        if (current->right != nullptr) queue.push(current->right);
-    }
-}
+// Reduce
 
 template <typename T>
 template <typename U>
